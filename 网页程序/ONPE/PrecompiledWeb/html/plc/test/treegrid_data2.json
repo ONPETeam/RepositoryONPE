@@ -1,6 +1,0 @@
-{ "total":3,"rows":[
-{"id":1,"name":"3#Ҥ","dVchRemark":"0","dIntSjNoteID":0},
-{"id":2,"name":"4#Ҥ","dVchRemark":"0","dIntSjNoteID":0,"_parentId":1,"state":"open"},
-{"id":3,"name":"5#Ҥ","dVchRemark":"0","dIntSjNoteID":0,"_parentId":1,"state":"open"}
-]}
-

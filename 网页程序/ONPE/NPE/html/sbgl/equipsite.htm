@@ -1,0 +1,615 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script src="jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script src="../../Scripts/e-smart-zoom-jquery.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        #imgContainer
+        {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" id="getFileCodeAndRefresh" onclick="SetFileCodeAndSearch()"
+        value="111111" />
+    <input type="hidden" id="getEquipCodeAndRefresh" onclick="SetEquipCodeAndSearch()"
+        value="2222" />
+    <table id="dg">
+    </table>
+    <div id="replaceFile" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width:450px;height:300px;padding:5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding:10px">
+                <form id="replaceff" enctype="multipart/form-data" method="post">
+                    <div class="ftitle">
+                        更换文件资料
+                    </div>
+                    <div class="fitem">
+                        <label style="text-align:right;width:120px;">
+                            要替换的文件名称：
+                        </label>
+                        <input id="replace_file_name" class="easyui-textbox" readonly="readonly" style="width:250px" />
+                        <input id="replace_file_code" type="hidden" name="file_code" />
+                    </div>
+                    <div class="fitem">
+                    <label style="text-align: right; width: 120px;">
+                        选择文件：</label>
+                    <input id="replace_file" class="easyui-filebox" style="width: 250px" required="true"
+                        missingmessage="请选择文件！" data-options="prompt:'请选择要上传的文件。。。'" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="ReplaceFile();" style="width:80px">替换</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-cancle'" href="javascript:void(0)"
+                    onclick="CloseReplaceFileWin()" style="width:80px">取消</a>
+            </div>
+        </div>
+    </div>
+    <div id="uploadFile" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 450px; height: 300px; padding: 5px">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="uploadff" enctype="multipart/form-data" method="post">
+                <div class="ftitle">
+                    选择设备
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right; width: 120px;">
+                        当前选择的设备：</label>
+                    <input id="select_equip_name" type="text" style="width: 250px" required="true" missingmessage="请点击左侧设备树选择设备！" />
+                    <input id="select_equip_code" type="hidden" name="equip_code" />
+                </div>
+                <div class="ftitle">
+                    选择文件</div>
+                <div class="fitem">
+                    <label style="text-align: right; width: 120px;">
+                        选择文件类型：</label>
+                    <input id="upload_fileclass_code" name="fileclass_code" class="easyui-combotree"
+                        style="width: 250px" required="true" missingmessage="请选择文件类型！" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right; width: 120px;">
+                        选择文件目录：</label>
+                    <input id="upload_diretory_code" name="diretory_code" class="easyui-combotree" style="width: 250px"
+                        required="true" missingmessage="请选择文件目录！" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right; width: 120px;">
+                        选择文件：</label>
+                    <input id="upload_file" class="easyui-filebox" style="width: 250px" required="true"
+                        missingmessage="请选择文件！" data-options="prompt:'请选择要上传的文件。。。'" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="saveUploadFile();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeUploadWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+    <div id="addFileEquip" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 610px; height: 310px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="ff">
+                <div class="ftitle">
+                    设备相关</div>
+                <div class="fitem">
+                    <label>
+                        选择区域：</label>
+                    <input id="area_id" class="easyui-combotree" style="width: 400px" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        选择设备：</label>
+                    <input id="equip_code" class="easyui-combotree" data-options="multiple:true" required="true"
+                        missingmessage="请选择设备！" style="width: 400px" />
+                </div>
+                <div class="ftitle">
+                    资料相关</div>
+                <div class="fitem">
+                    <label>
+                        资料类型：</label>
+                    <input id="fileclass_code" class="easyui-combotree" style="width: 400px" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        资料目录：</label>
+                    <input id="diretory_parent" class="easyui-combotree" style="width: 400px" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        选择资料：</label>
+                    <input id="file_code" class="easyui-combobox" data-options="multiple:true" required="true"
+                        missingmessage="请选择资料！" style="width: 400px" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="saveFileEquip();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeAddWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+    <div id="ImgContext">
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var fileClassCode = "PCZLLX999999000003";
+    var selRow;
+    var imgTemp;
+    var clientH = 500;
+    var clientW = 700;
+    function adjustImgSize(img, boxWidth, boxHeight) {
+        var tempImg = new Image();
+        tempImg.src = img.attr('src');
+        var imgWidth = tempImg.width;
+        var imgHeight = tempImg.height;
+        if ((boxWidth / boxHeight) >= (imgWidth / imgHeight)) {
+            img.width((boxHeight * imgWidth) / imgHeight);
+            img.height(boxHeight);
+            var margin = (boxWidth - img.width()) / 2;
+            img.css("margin-left", margin);
+        }
+        else {
+            img.width(boxWidth);
+            img.height((boxWidth * imgHeight) / imgWidth);
+            var margin = (boxHeight - img.height()) / 2;
+            img.css("margin-top", margin);
+        }
+    };
+    var LoadImage = function (fileCode) {
+        clientW = $(document.body).width();
+        var currentPageTitle = window.parent.getCurrentPageTitle();
+        clientH = $('#mainFrame' + currentPageTitle, window.parent.document).height();
+        var src = '../../ashx/file/fileHandler.ashx?action=out&file_code=' + fileCode;
+        $("#ImgContext").html(" <img id='_img' src='" + src + "'/>");
+        $('#_img').load(function () {
+            adjustImgSize($(this), $("#ImgContext").panel('options').width, $("#ImgContext").panel('options').height);
+            $('#_img').smartZoom({ 'containerClass': 'zoomableContainer' });
+        });
+    };
+    function showFileInfo(fileCode) {
+        LoadImage(fileCode);
+        imgTemp = "1";
+        $('#ImgContext').dialog({
+            title: "图片预览",
+
+            width: clientW,
+            height: clientH,
+            top: $(document).scrollTop() + ($(window).height() - clientH) * 0.5,
+            resizable: true,
+            cache: false,
+            modal: true,
+            fitColumns: true,
+            onClose: function () {
+                imgTemp = "";
+            },
+            //            onMove:function(top,left){
+            //                LoadImage(fileCode);
+            //            },
+            onResize: function (width, height) {
+                LoadImage(fileCode);
+            }
+        });
+    };
+    $(document).ready(function () {
+
+        $(document).scroll(function () {
+            if (imgTemp != "" && imgTemp != undefined) {
+                $("#ImgContext").dialog({ top: $(document).scrollTop() + ($(window).height() - clientH) * 0.5 });
+            }
+        });
+        var equipselectID = $(parent.frames['leftFrame1'].document).find('#equidid');
+        var equip_code_value = equipselectID.val();
+        $('#dg').datagrid({
+            url: '../../ashx/sbgl/fileEquipHandler.ashx?action=grid',
+            method: 'post',
+            queryParams: {
+                equip_code: equip_code_value,
+                fileclass_code: fileClassCode
+            },
+            fit: true,
+            loadMsg: "正在努力加载数据，请稍后...",
+            pagination: true, //分页控件
+            pagePosition: 'bottom', //分页控件位置
+            singleSelect: true,
+            remoteSort: false,
+            frozenColumns: [[{
+                title: '操作', colspan: 3
+            }, { field: 'file_name', title: '文件名称', align: 'center', width: 200, rowspan: 2}], [
+                { field: 'equipfile_code', title: '查看', width: 40, align: 'center', rowspan: 1,
+                    formatter: function (value, row) {
+                        var str = "";
+                        if (value != "" || value != null) {
+                            //判断是否是图像文件。。。
+                            str = "<img style=\"height: 20px;width: 20px;\" src=\"../../img/Search.png\" onclick=\"showFileInfo('" + row.file_code + "')\"/>";
+                        }
+                        return str;
+                    }
+                },
+                { field: 'file_code', title: '下载', width: 40, align: 'center', rowspan: 1,
+                    formatter: function (value, row) {
+                        var str = "";
+                        if (value != "" || value != null) {
+                            str = "<a href=\"javascript:void(0)\" onclick=\"$.download('../../ashx/file/fileHandler.ashx','action=download&file_code=" + row.file_code + "','post')\"><img style=\"height: 20px;width: 20px;\" src=\"../../img/Download.png\" /></a>";
+                        }
+                        return str;
+                    }
+                },
+                { field: 'equip_code', title: '替换', width: 40, align: 'center', rowspan: 1,
+                    formatter: function (value, row) {
+                        var str = "";
+                        if (value != "" || value != null) {
+                            str = "<a href=\"javascript:void(0)\" onclick=\"showFileReplaceWin('" + row.file_code + "','" + row.file_name + "')\"><img style=\"height: 20px;width: 20px;\" src=\"../../img/Replace pixels.png\" /></a>";
+                        }
+                        return str;
+                    }
+                }
+            ]],
+            columns: [[
+            //{ field: 'equipfile_code', title: '设备资料编号', width: 100, hidden: true },
+                {field: 'area_id', title: '区域编号', width: 150, sortable: true, hidden: true },
+                { field: 'area_name', title: '区域名称', width: 150, sortable: true },
+                { field: 'equip_parent_code', title: '上级设备编号', width: 200, hidden: true },
+                { field: 'equip_parent_name', title: '上级设备名称', width: 120, sortable: true },
+            //{ field: 'equip_code', title: '设备编码', width: 200, hidden: true },
+                {field: 'equip_name', title: '设备名称', width: 200, sortable: true },
+                { field: 'fileclass_code', title: '文件类型编号', width: 100, hidden: true },
+                { field: 'fileclass_name', title: '文件类型名称', width: 100 },
+                { field: 'diretory_code', title: '目录编号', width: 100, hidden: true },
+                { field: 'diretory_name', title: '目录名称', width: 100 }
+            //{ field: 'file_code', title: '文件编号', width: 100, hidden: true },
+
+
+
+            ]],
+            toolbar: [{
+                text: '关联新资料',
+                iconCls: 'icon-add',
+                handler: function () {
+                    $('#uploadFile').window('open');
+                    LoadUploadComboData();
+                }
+            }, {
+                text: '关联已有资料',
+                iconCls: 'icon-add',
+                handler: function () {
+                    $('#addFileEquip').window('open');
+                    LoadComboData();
+                }
+            }, {
+                text: '删除',
+                iconCls: 'icon-no',
+                handler: function () {
+                    delMsgDialog();
+                }
+            }, {
+                text: '保存',
+                iconCls: 'icon-save',
+                handler: function () { alert('save') }
+            }, '-',
+            //            {
+            //                text: '设备名称：<input type="text" id="search_equip_name"/><input type="hidden" id="search_equip_code"/>'
+            //            }, 
+            {
+            text: '文件名称：<input  id="search_file_name"/>'
+        }, {
+            text: '搜索',
+            iconCls: 'icon-search',
+            handler: function () {
+                doSearch();
+            }
+        }],
+        onSelect: function (index, row) {
+            selRow = row.equipfile_code;
+        }
+    });
+    $('#search_file_name').textbox();
+    var p = $('#dg').datagrid('getPager');
+    $(p).pagination({
+        pageSize: 10, //每页显示的记录条数，默认为10 
+        pageList: [10, 20, 50], //可以设置每页记录条数的列表 
+        beforePageText: '第', //页数文本框前显示的汉字 
+        afterPageText: '页    共 {pages} 页',
+        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+    });
+    $('#addFileEquip').window({
+        title: '设备关联已有资料',
+        modal: true,
+        closed: true,
+        minimizable: false,
+        collapsible: true
+    });
+    $('#replaceFile').window({
+        title: '替换现有资料',
+        modal: true,
+        closed: true,
+        minimizable: false,
+        collapsible: true
+    });
+    $('#uploadFile').window({
+        title: '添加新的设备资料',
+        modal: true,
+        closed: true,
+        minimizable: false,
+        collapsible: true
+    });
+});
+function SetFileCodeAndSearch() {
+    $('#dg').datagrid('load', {
+        fileclass_code: fileClassCode,
+        file_code: $('#getFileCodeAndRefresh').val()
+    })
+};
+function SetEquipCodeAndSearch() {
+    $('#dg').datagrid('load', {
+        fileclass_code: fileClassCode,
+        equip_code: $('#getEquipCodeAndRefresh').val()
+    })
+};
+function doSearch() {
+    $('#dg').datagrid('load', {
+        //equip_name: $('#search_equip_name').val(),
+        //equip_code: $('#search_equip_code').val(),
+        file_name: $('#search_file_name').textbox('getText'),
+        fileclass_code: fileClassCode
+    })
+};
+
+function saveUploadFile() {
+    $.messager.progress();
+    $('#uploadff').form('submit', {
+        url: '../../ashx/file/fileHandler.ashx?action=add',
+        onSubmit: function () {
+            var isValid = $(this).form('validate');
+            if (!isValid) {
+                $.messager.progress('close'); // hide progress bar while the form is invalid
+            }
+            return isValid;
+
+            //                param.fileclass_code = $('#upload_fileclass_code').combotree('getValue');
+            //                param.diretory_parent = $('#upload_diretory_code').combotree('getValue');
+        },
+        success: function (result) {
+            $.messager.progress('close');
+            if (result.toString().length == 18) {
+                var fileEquipInfo = {
+                    file_code: result.toString(),
+                    equip_code: $('#select_equip_code').val()
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '../../ashx/sbgl/fileEquipHandler.ashx?action=add',
+                    data: fileEquipInfo,
+                    dataType: 'text',
+                    success: function (msg) {
+                        if (msg == "1") {
+                            parent.$.messager.alert("操作提示", "添加成功！", "info");
+                            $('#dg').datagrid('reload');
+                            closeUploadWin();
+                        }
+                    }
+                });
+            }
+
+        }
+    });
+};
+function saveFileEquip() {
+    var m = 0;
+    var fileCode = $('#file_code').combotree('getValues');
+    var equipCode = $('#equip_code').combotree('getValues');
+    for (var i = 0; i < fileCode.length; i++) {
+        for (var j = 0; j < equipCode.length; j++) {
+            var fileEquipInfo = {
+                file_code: fileCode[i].toString(),
+                equip_code: equipCode[j].toString()
+            };
+            $.ajax({
+                type: 'post',
+                url: '../../ashx/sbgl/fileEquipHandler.ashx?action=add',
+                data: fileEquipInfo,
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == "1") {
+
+
+                    } else {
+                        m = m + 1;
+                    }
+                }
+            });
+        }
+    }
+    if (m == 0) {
+        parent.$.messager.alert("操作提示", "保存成功", "info");
+        $('#dg').datagrid('reload');
+        //            $('#ff').form('clear');
+        //            LoadComboData();
+    }
+    else {
+        $.messager.showMsg("操作提示", "保存失败", "error");
+    }
+}
+
+function showFileReplaceWin(fileCode, fileName) {
+    parent.$.messager.confirm("操作提示", "替换该文件，会使其他设备关联到该文件的一并替换，确认替换么？", function (data) {
+        if (data) {
+            $('#replaceFile').window('open');
+            $('#replace_file_code').val(fileCode);
+            $('#replace_file_name').textbox('setText', fileName);
+        }
+    });
+};
+
+function ReplaceFile() {
+    $.messager.progress();
+    $('#replaceff').form('submit', {
+        url: '../../ashx/file/fileHandler.ashx?action=replace',
+        onSubmit: function () {
+            var isValid = $(this).form('validate');
+            if (!isValid) {
+                $.messager.progress('close');
+            }
+            return isValid;
+        },
+        success: function (result) {
+            $.messager.progress('close');
+            if (result == "1") {
+                parent.$.messager.alert("操作提示", "替换成功！", "info");
+                $('#dg').datagrid('reload');
+                CloseReplaceFileWin();
+            }
+        }
+    });
+};
+
+function CloseReplaceFileWin() {
+    $('#replaceFile').window('close');
+};
+
+
+//删除操作提示
+function delMsgDialog() {
+    if (selRow != undefined || selRow != "") {
+        parent.$.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) {
+            if (data) {
+                delNode();
+            }
+            else {
+            }
+        });
+    }
+    else {
+        parent.$.messager.alert("操作提示", "请选择要删除的数据！", "error");
+    }
+};
+function delNode() {
+    $.ajax({
+        url: '../../ashx/sbgl/fileEquipHandler.ashx?action=del',
+        data: { equipfile_code: selRow },
+        type: 'post',
+        dataType: 'text',
+        success: function (msg) {
+            if (msg == '1') {
+                parent.$.messager.alert("操作提示", "删除成功！", "info");
+                $('#dg').datagrid('reload');
+            } else {
+                parent.$.messager.alert("操作提示", "删除失败！", "error");
+            }
+        }
+    });
+};
+function closeAddWin() {
+    $('#addFileEquip').window('close');
+    $('#dg').datagrid('reload');
+};
+function closeUploadWin() {
+    $('#uploadFile').window('close');
+    $('#dg').datagrid('reload');
+};
+var LoadUploadComboData = function () {
+    var equipselectID = $(parent.frames['leftFrame1'].document).find('#equidid');
+    $('#select_equip_code').val(equipselectID.val());
+    var equipselectName = $(parent.frames['leftFrame1'].document).find('#equidname');
+    $('#select_equip_name').val(equipselectName.val());
+    $('#upload_fileclass_code').combotree({
+        url: '../../ashx/file/fileclassHandler.ashx?action=combo',
+        animate: true,
+        onBeforeExpand: function (node) {
+            $('#upload_fileclass_code').combotree("tree").tree("options").url = "../../ashx/file/fileclassHandler.ashx?action=combo&fileclass_parent=" + node.id;
+        },
+        onSelect: function (classnode) {
+            $('#upload_diretory_code').combotree({
+                url: '../../ashx/file/diretoryHandler.ashx?action=combo&diretory_parent=&fileclass_code=' + classnode.id,
+                animate: true,
+                onBeforeExpand: function (node) {
+                    $('#upload_diretory_code').combotree("tree").tree("options").url = "../../ashx/file/diretoryHandler.ashx?action=combo&diretory_parent=" + node.id + "&fileclass_code=" + classnode.id;
+                }
+            });
+        }, onLoadSuccess: function (node, data) {
+            var node = $('#upload_fileclass_code').combotree('tree').tree('find', fileClassCode);
+            $('#upload_fileclass_code').combotree('setText', node.text);
+            $('#upload_fileclass_code').combotree('tree').tree('select', node.target);
+        }
+    });
+};
+jQuery.download = function (url, data, method) {    // 获得url和data
+    if (url && data) {
+        // data 是 string 或者 array/object
+        data = typeof data == 'string' ? data : jQuery.param(data);        // 把参数组装成 form的  input
+        var inputs = '';
+        jQuery.each(data.split('&'), function () {
+            var pair = this.split('=');
+            inputs += '<input type="hidden" name="' + pair[0] + '" value="' + pair[1] + '" />';
+        });        // request发送请求
+        jQuery('<form action="' + url + '" method="' + (method || 'post') + '">' + inputs + '</form>')
+            .appendTo('body').submit().remove();
+    };
+};
+var LoadComboData = function () {
+    $('#fileclass_code').combotree({
+        url: '../../ashx/file/fileclassHandler.ashx?action=combo',
+        animate: true,
+        onBeforeExpand: function (node) {
+            $('#fileclass_code').combotree("tree").tree("options").url = "../../ashx/file/fileclassHandler.ashx?action=combo&fileclass_parent=" + node.id;
+        },
+        onSelect: function (classnode) {
+            $('#diretory_parent').combotree({
+                url: '../../ashx/file/diretoryHandler.ashx?action=combo&diretory_parent=&fileclass_code=' + classnode.id,
+                animate: true,
+                onBeforeExpand: function (node) {
+                    $('#diretory_parent').combotree("tree").tree("options").url = "../../ashx/file/diretoryHandler.ashx?action=combo&diretory_parent=" + node.id + "&fileclass_code=" + classnode.id;
+                },
+                onSelect: function (node) {
+                    $('#file_code').combotree({
+                        url: '../../ashx/file/fileHandler.ashx?action=combo&diretory_code=' + node.id,
+                        animate: true
+                    });
+                }
+            });
+        }, onLoadSuccess: function (node, data) {
+            var node = $('#fileclass_code').combotree('tree').tree('find', fileClassCode);
+            $('#fileclass_code').combotree('setText', node.text);
+            $('#fileclass_code').combotree('tree').tree('select', node.target);
+        }
+    });
+
+    $('#area_id').combotree({
+        url: '../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=0',
+        animate: true,
+        onBeforeExpand: function (node) {
+            $('#area_id').combotree("tree").tree("options").url = "../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=" + node.id;
+        },
+        onSelect: function (areanode) {
+            $('#equip_code').combotree({
+                url: '../../ashx/sbgl/equipHandler.ashx?action=combo&area_id=' + areanode.id,
+                animate: true,
+                onBeforeExpand: function (node) {
+                    $('#equip_code').combotree("tree").tree("options").url = "../../ashx/sbgl/equipHandler.ashx?action=combo&equip_parent=" + node.id + '&area_id=' + areanode.id;
+                }
+            });
+        }
+    });
+};
+</script>

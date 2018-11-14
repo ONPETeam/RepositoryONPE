@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>待审核停电申请</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="../../Scripts/Common/common.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/TSD/examinepoweroff.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" data-options="toolbar:'#tb'">
+    </table>
+    <div id="tb" class="easyui-toolbar">
+        <a id="btn_examine_poweroff_request" class="easyui-linkbutton" href="javascript:void()" data-options="iconCls:'icon-add',plain:true" onclick="ExaminPowerOffRequest()">审核</a>
+        <span class="datagrid-btn-separator" style="vertical-align: middle; height: 15px; display: inline-block; float: none"> </span>
+        申请时间：
+        <input class="easyui-datetimebox" id="search_request_start" />
+        至
+        <input class="easyui-datetimebox" id="search_request_end" />
+        停电时间：
+        <input class="easyui-datetimebox" id="search_stop_start" />
+        至
+        <input class="easyui-datetimebox" id="search_stop_end" />
+        <a class="easyui-linkbutton" href="javascript:void(0)" onclick="SearchData()" data-options="iconCls:'icon-search',plain:true">查询</a>
+    </div>
+    <div id="win_examine_poweroff_request" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 606px; height: 385px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="ff">
+                <div class="ftitle">
+                    已选择停电申请：
+                </div>
+                <div class="fitem">
+                    <input id="poweroff_id" type="hidden" />
+                    <label style="text-align: right;">
+                        停电申请：</label>
+                    <label style="text-align: left;width:380px" id="poweroff_descript">
+                    </label>
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-reset'" href="javascript:void(0)"
+                        onclick="ClearSelectPowerOff();" style="width: 80px">重置</a>
+                </div>
+                <div class="ftitle">
+                    审核凭据
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        设备名称：</label>
+                    <input id="txt_equip_code" type="hidden" />
+                    <input id="txt_equip_name" class="easyui-textbox" disabled="disabled" style="width:90px" />
+                    <label style="text-align: right;width:60px">
+                        设备状态：</label>
+                    <input id="txt_equip_state" type="hidden" />
+                    <input id="txt_state_name" class="easyui-textbox" disabled="disabled" style="width:40px" />
+                    <img src="../../img/Info.png" class="easyui-tooltip" title="状态说明：<br/>绿色代表设备正在运行<br/>红色代表设备已经停止运行<br/>黄色代表设备状态未知" style="width:12px;height:12px; vertical-align:middle" />
+                    <label style="text-align: right;;width:60px">
+                        状态时间：</label>
+                    <input id="txt_value_time" class="easyui-textbox" disabled="disabled" style="width:120px" />
+                    <a id="btn_get_equip_state" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-refresh'" onclick="GetEquipState()">刷新</a>
+                </div>
+                <div class="ftitle">
+                    审核信息
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        审核人：</label>
+                    <input id="examine_employee" type="hidden" />
+                    <input id="txt_examine_employee" class="easyui-textbox" disabled="disabled" style="width:180px" />
+                
+                    <label style="text-align: right;">
+                        审核时间：</label>
+                    <input id="dtb_start_time" class="easyui-datetimebox" required="true" missingmessage="请选择停电时间！" style="width:180px" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        审核结果：</label>
+                    <input id="swb_examine_result" class="easyui-switchbutton" ontext="同意停电" offtext="拒绝停电"  style="width: 460px;" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        审核说明：</label>
+                    <input id="txt_examine_remark" class="easyui-textbox" style="height: 40px;width:460px;" data-option="mutiline:true" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="ExaminePowerOff();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="CloseAddWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

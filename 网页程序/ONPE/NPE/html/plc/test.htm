@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>故障对策添加编辑页面</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css"/>
+    <link rel="Stylesheet" type="text/css" href="css/all.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+<div class="ftitle">plc故障对策</div>
+		<form id="fm" method="post" novalidate>
+			<div class="fitem">
+				<label>故障名称:</label>
+				<input id="iGzName" name="nGzName">
+			</div>
+			<div class="fitem">
+				<label>故障现象:</label>
+				<input id="iGzxx" name="nGzxx" >
+			</div>
+			<div class="fitem">
+				<label>故障原因:</label>
+				<input id="iGzyy" name="nGzyy">
+			</div>
+             <div class="fitem">
+				<label>故障处理办法:</label>
+				<input id="iGzclbf" name="nGzclbf" />
+			</div>
+            <div class="fitem">
+				<label>故障分类:</label>
+                <input id="iGzfl" class="easyui-combobox" name="nGzfl" 
+			    data-options="
+				url:'../../ashx/plc/ahplcgzdc.ashx?action=cboxgzfl',
+				method:'get',
+				valueField:'dIntGzType',
+				textField:'dVchGzTypeName',
+				panelHeight:'auto'
+			">
+			</div>
+		</form>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var obj = $('#dlg').dialog('options');
+        var queryParams = obj["va"];
+        $('#iGzName').val(queryParams);
+        alert(queryParams);
+    });
+    //获取页面url参数
+    function getQueryParam(name) {
+        var obj = $('#dlg').dialog('options');
+        var queryParams = obj["va"];
+
+        return queryParams[name];
+    }
+</script>

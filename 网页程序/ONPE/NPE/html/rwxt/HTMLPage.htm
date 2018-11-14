@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+</head>
+<body>
+    <div id="ShowWin" class="easyui-window" title="" data-options="iconCls:'icon-save',cache: false" style="width: 600px; height: 740px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="tt">
+                    <div class="ftitle">
+                    //标题名
+                    </div>
+                    
+                    	              <div class="fitem">
+						<label style="width:auto;text-align:right">
+                     geog_id:
+						</label>
+                     <input id="geog_id" class="easyui-textbox" style="width:auto;"/>
+                   </div>
+              <div class="fitem">
+						<label style="width:auto;text-align:right">
+                     geog_name:
+						</label>
+                     <input id="geog_name" class="easyui-textbox" style="width:auto;"/>
+                   </div>
+              <div class="fitem">
+						<label style="width:auto;text-align:right">
+                     geog_parent:
+						</label>
+                     <input id="geog_parent" class="easyui-textbox" style="width:auto;"/>
+                   </div>
+              <div class="fitem">
+						<label style="width:auto;text-align:right">
+                     geog_type:
+						</label>
+                     <input id="geog_type" class="easyui-textbox" style="width:auto;"/>
+                   </div>
+              <div class="fitem">
+						<label style="width:auto;text-align:right">
+                     geog_zip:
+						</label>
+                     <input id="geog_zip" class="easyui-textbox" style="width:auto;"/>
+                   </div>
+                    
+                </form>
+            </div>
+            <div id="ss" data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="SaveContent();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+	<table id="dg"></table>
+</body>
+<script  type="text/javascript">
+    var selRow;
+    var action;
+    $(document).ready(function () {
+        $('#dg').datagrid({
+            url: '../../ashx/t_Geog/t_GeogHandler.ashx?action=grid',
+            method: 'post',
+            loadMsg: "正在努力加载数据，请稍后...",
+            pagination: true, //分页控件
+            pageSize: 20,
+            pagePosition: 'bottom', //分页控件位置
+            singleSelect: true,
+            rownumbers: true,
+            remoteSort: false,
+            columns: [[
+						{ field: 'geog_id', title: 'geog_id', width: 100, align: 'center', sortable: true },
+						{ field: 'geog_name', title: 'geog_name', width: 100, align: 'center', sortable: true },
+						{ field: 'geog_parent', title: 'geog_parent', width: 100, align: 'center', sortable: true },
+						{ field: 'geog_type', title: 'geog_type', width: 100, align: 'center', sortable: true },
+						{ field: 'geog_zip', title: 'geog_zip', width: 100, align: 'center', sortable: true }
+            //！！！！注意，此处最后一个“,”请手动删除
+            ]],
+            toolbar: [
+            {
+                text: '查看详细',
+                iconCls: 'icon-info',
+                handler: function () {
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row) {
+                        //弹出添加框之前的操作 
+                        $('#ShowWin').window('open').window('setTitle', '查看详细');
+                        document.getElementById('ss').style.display = 'none';
+                    } else {
+                        showMsg("操作提示", "您未选择任何行！", "info");
+                    }
+                }
+            }, '-', {
+                text: '新增记录',
+                iconCls: 'icon-add',
+                handler: function () {
+                    action = 'add';
+                    //弹出添加框之前的操作，比如初始化下拉框、设定默认值等
+                    $('#ShowWin').window('open').window('setTitle', '新增记录');
+                    document.getElementById('ss').style.display = '';
+                }
+            }, {
+                text: '修改记录',
+                iconCls: 'icon-cut',
+                handler: function () {
+                    action = 'edit';
+                    var row = $('#dg').datagrid('getSelected');
+                    //row为选中行
+                    if (row) {
+                        //弹出添加框之前的操作 
+                        $('#ShowWin').window('open').window('setTitle', '修改记录');
+                        document.getElementById('ss').style.display = '';
+                    } else {
+                        showMsg("操作提示", "您未选择任何行！", "info");
+                    }
+
+                }
+            }, {
+                text: '删除记录',
+                iconCls: 'icon-no',
+                handler: function () {
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row) {
+                        delMsgDialog(row);
+                    } else {
+                        showMsg("操作提示", "您未选择任何行！", "info");
+                    }
+                }
+            },
+            '-', {
+                text: '要搜索列的显示名: <input id="要搜索的列名" class="easyui-textbox">'
+            },
+            {
+                text: '要搜索列的显示名: <input id="要搜索的列名" class="easyui-textbox">'
+            },
+            //{......
+            //    text: '要搜索列的显示名: <input id="要搜索的列名" class="easyui-textbox">'....
+            //},.....
+            {
+            text: '搜索',
+            iconCls: 'icon-search',
+            handler: function () {
+                $('#dg').datagrid('load', {
+                    要搜索的列名: $('#要搜索的列名').textbox('getText'),
+                    要搜索的列名: $('#要搜索的列名').textbox('getText')
+                    //....
+                });
+            }
+        }]
+    });
+    var p = $('#dg').datagrid('getPager');
+    $(p).pagination({
+        pageSize: 20, //每页显示的记录条数，默认为20 
+        pageList: [10, 20, 50], //可以设置每页记录条数的列表 
+        beforePageText: '第', //页数文本框前显示的汉字 
+        afterPageText: '页    共 {pages} 页',
+        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+    });
+    $('#ShowWin').window({
+        striped: true,
+        singleSelect: true,
+        modal: true,
+        closed: true,
+        minimizable: false,
+        collapsible: true
+    });
+});
+//编辑操作提示
+function editMsgDialog() {
+    $.messager.confirm("操作提示", "您确定要执行编辑操作吗？", function (data) {
+        if (data) {
+            //编辑操作
+        }
+        else {
+        }
+    });
+};
+//删除操作提示
+function delMsgDialog(rowData) {
+    $.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) {
+        if (data) {
+            //要执行的操作 rowData为选中行
+        }
+        else {
+        }
+    });
+};
+function closeWin() {
+    $('#ShowWin').window('close');
+};
+function SaveContent() {
+    switch (action) {
+        case 'add':
+            //添加操作
+        case 'edit':
+            editMsgDialog();
+    }
+};
+</script>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script src="../../Scripts/html/admin/admin_push_class.js" type="text/javascript"></script>
+    <title>推送报警等级设定</title>
+</head>
+<body>
+    <table id="dg" data-options="fit:true,border:false,toolbar:'#tb'">
+    </table>
+    <div id="win_push_class" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 320px; height: 340px; padding: 5px;">
+        <div data-options="region:'center'" style="padding: 10px;">
+            <form id="ff">
+            <div class="ftitle">
+                基础信息
+            </div>
+            <input type="hidden" id="txt_class_id" />
+            <div class="fitem">
+                <label style="width:80px;text-align:right;">等级名称：</label>
+                <input class="easyui-textbox" id="txt_class_name" required="true" missingmessage="请输入等级名称！" />
+            </div>
+            <div class="fitem">
+                <label style="width:80px;text-align:right;">等级说明：</label>
+                <input class="easyui-textbox" id="txt_class_remark" data-options="muiltline:true" style="height:30px;" />
+            </div>
+            <div class="ftitle">
+                安卓推送样式
+            </div>
+            <div class="fitem">
+                <label style="width:80px;text-align:right;">安卓样式：</label>
+                <input id="cmb_android_buildid" class="easyui-combobox"  />
+            </div>
+            <div class="ftitle">
+                IOS推送声音
+            </div>
+            <div class="fitem">
+                <label style="width:80px;text-align:right;">IOS声音：</label>
+                <input id="cmb_ios_sound" class="easyui-combobox"  />
+            </div>
+            </form>
+        </div>
+        <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="SavePushClass();" style="width: 80px">保存</a> 
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="CloseWin()" style="width: 80px">取消</a>
+        </div>
+    </div>
+    <div id="tb" class="easyui-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="AddPushClass()">添加推送等级 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="EditPushClass()">编辑推送等级</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:true" onclick="DelPushClass()">删除推送等级 </a>
+    </div>
+</body>
+</html>

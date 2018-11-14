@@ -1,0 +1,35 @@
+E:\工作\权限管理\web\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.dll
+E:\工作\权限管理\web\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.pdb
+E:\工作\权限管理\web\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.dll
+E:\工作\权限管理\web\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.pdb
+E:\工作\权限管理\web\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.csprojResolveAssemblyReference.cache
+E:\工作\权限管理\web\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.dll
+E:\工作\权限管理\web\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.dll
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.dll
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.csprojResolveAssemblyReference.cache
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.dll
+D:\工作\Desktop\权限管理\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.csprojResolveAssemblyReference.cache
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.pdb
+D:\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.dll
+D:\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.pdb
+D:\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.dll
+D:\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.pdb
+D:\ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.csprojResolveAssemblyReference.cache
+D:\ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.dll
+D:\ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Interface.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\bin\Debug\GJHF.Data.Model.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.csprojResolveAssemblyReference.cache
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.Interface\obj\Debug\GJHF.Data.Interface.pdb

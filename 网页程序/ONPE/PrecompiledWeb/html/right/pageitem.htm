@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>页面项管理</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script src="../../Scripts/html/right/pageitem.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/icon/iconSize.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/icon/iconAlign.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/right/pageItemClass.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="ShowWin" class="easyui-window" title="" data-options="iconCls:'icon-save',cache: false"
+        style="width: 540px; height: 420px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="tt">
+                <div class="ftitle">
+                    基础信息
+                </div>
+                <div class="fitem">
+                    <input type="hidden" id="item_id" />
+                    <label style="width: 60px; text-align: right">
+                        项目名称:
+                    </label>
+                    <input id="item_name" class="easyui-textbox" style="width: 100px;" />
+                    <label style="width: 60px; text-align: right">
+                        项目编码:
+                    </label>
+                    <input id="item_code" class="easyui-textbox" style="width: 80px;" />
+                    <label style="width: 60px; text-align: right">
+                        标题:
+                    </label>
+                    <input id="item_title" class="easyui-textbox" style="width: 80px;" />
+                </div>
+               
+                <div class="ftitle">
+                    图标相关
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        图标名称:
+                    </label>
+                    <input id="item_icon" class="easyui-textbox" style="width: 100px;" />
+                    <label style="width: 60px; text-align: right">
+                        对齐方式:
+                    </label>
+                    <input id="item_iconalign" class="easyui-combobox" style="width: 80px;" />
+                    <label style="width: 60px; text-align: right">
+                        图标大小:
+                    </label>
+                    <input id="item_iconsize" class="easyui-combobox" style="width: 80px;" />
+                </div>
+                <div class="ftitle">
+                    类型与关系
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        项目类型:
+                    </label>
+                    <input id="item_class" class="easyui-combobox" style="width: 160px;" />
+                    <label style="width: 60px; text-align: right">
+                        上级项目:
+                    </label>
+                    <input id="item_parent" class="easyui-combobox" style="width: 160px;" />
+                </div>
+                
+                <div class="ftitle">
+                    备注
+                </div>
+                <div class="fitem">
+                    <input id="item_remark" class="easyui-textbox" style="width: 350px;height:30px" />
+                </div>
+                </form>
+            </div>
+            <div  data-options="region:'south',border:false" style="text-align: right;
+                padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" id="ss"
+                    onclick="SaveContent();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeWin()"
+                        style="width: 80px">关闭</a>
+            </div>
+        </div>
+    </div>
+    <table id="dg">
+    </table>
+
+</body>
+</html>

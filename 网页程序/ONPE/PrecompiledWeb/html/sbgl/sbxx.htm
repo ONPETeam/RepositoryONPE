@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div id="loading" style="width: 200px; display: none">
+        <img src="../../img/loading.gif" style="width: 16px; height=16px"></img>
+        Loading......
+    </div>
+    <ul id="tt" class="easyui-tree" style="padding-top: 6px">
+    </ul>
+    <div id="mm" class="easyui-menu" data-options="onClick:menuHandler" style="width: 60px">
+        <div data-options="name:'m_add_area',iconCls:'icon-add'">
+            添加子区域</div>
+        <div data-options="name:'m_add_top_equip',iconCls:'icon-add'">
+            添加设备</div>
+        <div data-options="name:'m_add_equip',iconCls:'icon-add'">
+            添加子设备</div>
+        <div class="menu-sep">
+        </div>
+        <!--<div data-options="name:'m_edit',iconCls:'icon-edit'">
+            编辑</div>
+        <div class="menu-sep">
+        </div>-->
+        <div data-options="name:'m_del',iconCls:'icon-no'">
+            删除</div>
+        
+    </div>
+    <input type="hidden" id="refreshtree" onclick="RefreshTree()" />
+</body>
+</html>
+<script type="text/javascript">
+    var treeNodes;
+    var menuNode;
+
+    function RefreshTree() {
+        $('#tt').tree('reload');
+    };
+    function getNode(node) {
+        //双击树节点，调用任务单明细
+        if (parent.currentPage == '3') {
+            var object1 = $(parent.frames["mainFrame3"].document).find("#equipId"); //这是jquery对象，不能使用easyui的方法，也不能使用样式，不然值不变
+            object1.val(node.id);
+        }
+    }
+
+    $(document).ready(function () {
+        //        getData();
+        $('#tt').tree({
+            checkbox: false,
+            animate: true,
+            url: '../../ashx/sbgl/areaHandler.ashx?action=tree&area_parent=0',
+            //data: treeNodes,
+            onContextMenu: function (e, node) {
+                e.preventDefault();
+                //$(this).tree('select', node.target);
+                menuNode = node;
+                if (menuNode.attributes == 'area' || menuNode.attributes == 'lastArea') {
+                    $('#mm').menu('enableItem', $('#mm').menu('findItem', '添加子区域').target);
+                    $('#mm').menu('enableItem', $('#mm').menu('findItem', '添加设备').target);
+                    $('#mm').menu('disableItem', $('#mm').menu('findItem', '添加子设备').target);
+                }
+                if (menuNode.attributes == 'equip' || menuNode.attributes == 'lastEquip') {
+                    $('#mm').menu('disableItem', $('#mm').menu('findItem', '添加子区域').target);
+                    $('#mm').menu('disableItem', $('#mm').menu('findItem', '添加设备').target);
+                    $('#mm').menu('enableItem', $('#mm').menu('findItem', '添加子设备').target);
+                }
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            },
+            onDblClick: function (node) {
+                if (node.attributes == 'equip' || node.attributes == 'lastEquip') {
+                    getNode(node);
+                }
+            },
+            onBeforeExpand: function (node, param) {
+                if (node.attributes == 'area') {
+                    $('#tt').tree('options').url = "../../ashx/sbgl/areaHandler.ashx?action=tree&area_parent=" + node.id;
+                }
+                if (node.attributes == 'lastArea') {
+
+                    $('#tt').tree('options').url = "../../ashx/sbgl/getTreeEquip.ashx?nodeID=" + node.id + "&type=1";
+                }
+                if (node.attributes == 'equip') {
+                    $('#tt').tree('options').url = "../../ashx/sbgl/getTreeEquip.ashx?nodeID=" + node.id + "&type=2";
+                }
+            },
+            onSelect: function (node) {
+                //                alert(node.attributes);
+                $('#tt').tree(node.state === 'closed' ? 'expand' : 'collapse', node.target);
+
+
+                if (node.attributes == 'area' || node.attributes == 'lastArea') {
+                    //                    alert($('#pg', window.parent.document).attr("id"));
+                    //                    alert(node.id);
+                    parent.LoadPropertyData('ashx/sbgl/areaHandler.ashx?action=prop&area_id=' + node.id);
+                    
+                }
+                if (node.attributes == 'equip' || node.attributes == 'lastEquip') {
+                    parent.LoadPropertyData('ashx/sbgl/getEquipProperty.ashx?nodeId=' + node.id);
+                }
+
+            },
+            onBeforeLoad: function (node, param) {
+                $('#loading').show();
+            },
+
+            onLoadSuccess: function (node, data) {
+                $('#loading').hide();
+            }
+        });
+
+    });
+    function menuHandler(item) {
+        switch (item.name) {
+            case 'm_add_area':
+                addNewAreaNode();
+                break;
+            case 'm_add_top_equip':
+                addNewEquipNode();
+                break;
+            case 'm_add_equip':
+                addNewEquipNode();
+                break;
+//            case 'm_edit':
+//                editNode();
+//                break;
+            case 'm_del':
+                delMsgDialog();
+                break;
+            default:
+                break;
+        }
+    };
+    //删除操作提示
+    function delMsgDialog() {
+        parent.$.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) {
+            if (data) {
+                delNode();
+            }
+            else {
+            }
+        });
+    };
+    function addNewAreaNode() {
+        parent.main.sbgl(11);
+        var objectName = $(parent.frames["mainFrame11"].document).find("#area_parent_name");
+//        var s = objectName.val();
+        alert(objectName.id);
+        objectName.val('12333');
+        var objectID = $(parent.frames["mainFrame11"].document).find("#area_parent_id")
+        objectID.val(menuNode.id);
+        //parent.main.addTabHtml("新增区域", 'html/sbgl/areaMng.htm?action=add&areaparent=' + menuNode.id);
+    };
+    function addNewEquipNode() {
+        parent.main.addTabHtml("新增设备", 'html/sbgl/equipMng.htm?equipid=' + menuNode.id);
+    };
+//    function editNode() {
+//        if (menuNode.attributes == 'area' || menuNode.attributes == 'lastArea') {
+//            parent.main.addTabHtml("编辑区域", 'html/sbgl/areaMng.htm?action=edit&areaid=' + menuNode.id);
+//        }
+//        if (menuNode.attributes == 'equip' || menuNode.attributes == 'lastEquip') {
+//            parent.main.addTabHtml("新增区域", 'html/sbgl/equipMng.htm?equipid=' + menuNode.id);
+//        }
+//    };
+
+    function delNode() {
+
+        if (menuNode.attributes == 'area' || menuNode.attributes == 'lastArea') {
+            $.ajax({
+                url: '../../ashx/sbgl/areaHandler.ashx?action=del&area_id=' + menuNode.id,
+                data: null,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        parent.$.messager.alert("操作提示", "删除成功！", "info");
+                        $('#tt').tree('reload');
+                    } else {
+                        parent.$.messager.alert("操作提示", "删除失败！", "error");
+                    }
+                }
+            });
+        }
+        if (menuNode.attributes == 'equip' || menuNode.attributes == 'lastEquip') {
+            $.ajax({
+                url: '../../ashx/sbgl/equipHandler.ashx?action=del&equip_id=' + menuNode.id,
+                data: null,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        showMsg("操作提示", "删除成功！", "info")
+                        $('#tt').tree('reload');
+                    } else {
+                        showMsg("操作提示", "删除失败！", "error")
+                    }
+                }
+            });
+        }
+    };
+    //获取数据
+    var getData = function () {
+        $.ajax({
+            type: 'post',
+            url: '../ashx/sbgl/area.ashx',
+            dataType: "json",
+            data: {},
+            async: false,
+            success: function (data) {
+                treeNodes = data;
+            },
+            error: function (xhr, ts, err) {
+                alert('读取失败！');
+            }
+        });
+    }
+
+
+</script>

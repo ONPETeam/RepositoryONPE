@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/all.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/webplcddz.js"></script>
+    <script src="js/validatebox.js" type="text/javascript"></script>  
+</head>
+<body>
+        <table id="dg" title="plc点地址信息" style="width: 100%"></table>
+        <!--添加编辑操作弹出框-->
+        <div id="dlg" class="easyui-dialog" style="width: 650px; height: 400px; padding: 10px 10px"
+            closed="true" buttons="#dlg-buttons" modal="true">
+            <!--<div class="ftitle">plc 点地址信息</div>-->
+            <form id="fm" method="post" novalidate>
+                   <div>
+                        <lable>请选择添加点的类型：</lable>
+                        <input type="radio" id="ijsg2" name="njs" value="0"  />普通点地址
+                        <input type="radio" id="ijsg1" name="njs" value="1" />计算变量
+                    </div>
+                 <div id="aa"  style="width:100%;height:300px;">
+                    <div title="添加点地址" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+                <div class="fitem">
+                <table>
+                    <tr>
+                        <td align="right"><label>点地址:</label></td>
+                        <td><input id="iAddress" name="Address" class="easyui-textbox"></td>
+                        <td align="right"><label>plc名称:</label></td>
+                        <td>
+                            <input id="iplc" class="easyui-combobox" name="nplc" data-options="
+				                    url: '../../ashx/plc/plcmanager.ashx?action=combox',
+                                    method: 'get',
+                                    required: false,
+                                    panelWidth: 'auto',
+                                    valueField: 'dIntPLCID',
+                                    textField: 'dVchPLCName',
+                                    groupField: 'dVchArea'
+			                    ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>简称:</label></td>
+                        <td><input id="iAdressName" name="AdressName" class="easyui-textbox"></td>
+                        <td align="right"><label>描述:</label></td>
+                        <td><input id="iDescription" name="Description" class="easyui-textbox"></td>
+                    </tr>
+                    <tr><td align="right"><label>功能分类:</label></td>
+                        <td>
+                            <input id="iGongType" name="GongType" class="easyui-combobox" data-options="
+				                url:'../../ashx/plc/ahplcgnfl.ashx?type=cbox',
+				                method:'get',
+                                required: false,
+				                valueField:'dIntGongNengID',
+				                textField:'dVchGongNengName',
+				                panelHeight:'auto'
+			                 ">
+                        </td>
+                        <td align="right"><label>IO类型:</label></td>
+                        <td>
+                            <input id="iIOType" name="IOType" class="easyui-combobox" data-options="
+				                url:'../../ashx/plc/ahplciofl.ashx?type=cbox',
+				                method:'get',
+                                required: false,
+				                valueField:'dIntIOType',
+				                textField:'dVchIOTypeName',
+				                panelHeight:'auto'
+			                    ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>变量类型:</label></td>
+                        <td>
+                            <!--<select id="iDataType" name="DataType" class="easyui-combobox" panelheight="auto"
+                            style="width: 150px">
+                            <option value="BOOLEN">BOOLEN</option>
+                            <option value="CHAR">CHAR</option>
+                            <option value="BYTE">BYTE</option>
+                            <option value="SHORT">SHORT</option>
+                            <option value="LONG">LONG</option>
+                            <option value="WORD">WORD</option>
+                            <option value="DWORD">DWORD</option>
+                            <option value="REAL">REAL</option>
+                            <option value="INT">INT</option>
+                        </select>-->
+                            <input id="iDataType" name="DataType" />
+                        </td>
+                        <td align="right"><label>单位（度）:</label></td>
+                        <td><input id="iDanwei" name="Danwei" class="easyui-textbox"></td>
+                    </tr>
+                    <!--<tr>-->
+                    <!--<td align="right">
+                        <label>
+                            总故障点:</label>
+                    </td>
+                    <td>
+                        <input type="radio" id="irgz" name="ZongGZ" value="1" />是
+                        <input type="radio" id="irgz" name="ZongGZ" value="0" checked="true" />否
+                    </td>-->
+                    <!--<td align="right">
+                        <label>
+                            开关量状态:</label>
+                    </td>
+                    <td>
+                        <select id="ikglzt" name="kglzt" class="easyui-combobox" panelheight="auto" style="width: 150px" required="true">
+                   
+                            <option value="1">故障点</option>
+                            <option value="2">状态点</option>
+                        </select>
+                    </td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td align="right"><label>标定最小值:</label></td>
+                        <!--<td><input id="iMoniMin" name="MoniMin" value="0" class="easyui-validatebox" data-options="required:true,validType:'intOrFloat'"></td>-->
+                        <td ><input class="easyui-numberbox" id="iMoniMin" name="MoniMin" value="0" style="width:150px"></td>
+                        <td align="right"><label>标定最大值:</label></td>
+                        <!--<td><input id="iMoniMax" name="MoniMax" value="0" class="easyui-validatebox" data-options="required:true,validType:'intOrFloat'"></td>-->
+                        <td ><input class="easyui-numberbox" id="iMoniMax" name="MoniMax" value="0"  style="width:150px"></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>实际最小值:</label></td>
+                        <!--<td><input id="iSjMin" name="SjMin" value="0" class="easyui-validatebox" data-options="required:true,validType:'intOrFloat'"></td>-->
+                        <td ><input class="easyui-numberbox" id="iSjMin" name="SjMin" value="0"  style="width:150px"></td>
+                        <td align="right"><label>实际最大值:</label></td>
+                        <!--<td><input id="iSjMax" name="SjMax" value="0" class="easyui-validatebox" data-options="required:true,validType:'intOrFloat'"></td>-->
+                        <td ><input class="easyui-numberbox" id="iSjMax" name="SjMax" value="0"   style="width:150px"></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>显示系统:</label></td>
+                        <td>
+                            <input id="iXitong" class="easyui-combobox" name="nXitong" data-options="
+				            url: '../../ashx/plc/ahplcXitong.ashx?action=combobox',
+				            method: 'get',
+                            required: false,
+                            panelHeight: 300,
+				            valueField:'dIntNoteID',
+				            textField:'dVchPointType',
+				            groupField:'dVchRemark',
+                            multiple:true
+			            ">
+                        </td>
+                        <td align="right"><label>显示顺序</label></td>
+                        <!--<td><input id="iXS" name="nXS" style="width: 40px" class="easyui-validatebox" data-options="required:true,validType:'intOrFloat'"></td>-->
+                         <td ><input class="easyui-numberbox" id="iXS" name="nXS" value="999" style="width:150px"></td>
+                    </tr>
+                    <tr><td align="right">用途分类:</td>
+                        <td>
+                            <select id="iyt" name="nyt" class="easyui-combobox" panelheight="auto" style="width: 155px">
+                                <option value="0">无用途</option>
+                                <option value="1">用途1</option>
+                                <option value="2">用途2</option>
+                                <option value="3">用途3</option>
+                            </select>
+                        </td>
+                     
+                        <!--<td align="right">计算变量:</td>
+                        <td><input type="radio" id="ijsg1" name="njs" value="1" />是
+                                <input type="radio" id="ijsg2" name="njs" value="0" checked="checked" />否
+                        </td>-->
+                    </tr>
+                </table>
+            </div>
+                    </div>
+                    <div title="计算公式" data-options="iconCls:'icon-help'" style="padding:10px;">
+                        <!--<div class="ftitle">变量计算公式</div>-->
+                <div><img src="../../img/Help.png"  style="width:12px;height:12px; vertical-align:middle"/>
+                <a id="dd" href="javascript:void(0)">公式使用说明</a></div>
+                <table align="center">
+                    <tr>
+                        <td align="right"><label>编号(自生成):</label></td>
+                        <td><input id="iBLBH" name="nBLBH" class="easyui-textbox" readonly="true" ></td>
+                        <td align="right"><label>变量名称:</label></td>
+                        <td>
+                            <input id="iBLName" name="nBLName" class="easyui-textbox">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>功能分类:</label></td>
+                        <td><input id="iBLGT" name="nBLGT" class="easyui-combobox" data-options="
+				                url:'../../ashx/plc/ahplcgnfl.ashx?type=cbox',
+				                method:'get',
+                                required: false,
+				                valueField:'dIntGongNengID',
+				                textField:'dVchGongNengName',
+				                panelHeight:'auto'
+			                 "></td>
+                        <td align="right"><label>单位:</label></td>
+                        <td>
+                            <input id="iBLDW" name="nBLDW" class="easyui-textbox">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>显示系统:</label></td>
+                        <td>
+                            <input id="iBLXT" class="easyui-combobox" name="nBLXT" data-options="
+				            url: '../../ashx/plc/ahplcXitong.ashx?action=combobox',
+				            method: 'get',
+                            required: false,
+                            panelHeight: 300,
+				            valueField:'dIntNoteID',
+				            textField:'dVchPointType',
+                            multiple:true,
+				            groupField:'dVchRemark'
+			            ">
+                        </td>
+                        <td align="right"><label>显示顺序:</label></td>
+                        <!--<td><input id="iBLXS" name="nBLXS"  class="easyui-validatebox" data-options="required:true,validType:'intOrFloat'" value="0"></td>-->
+                           <td ><input class="easyui-numberbox" id="iBLXS" name="nBLXS" value="0" style="width:150px"></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label> 参数a:</label></td>
+                        <td colspan="3"><input id="icsa" name="ncsa" class="easyui-combotree" style="width: 300px;"></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label> 参数b:</label></td>
+                        <td colspan="3"><input id="icsb" name="ncsb" class="easyui-textbox" style="width: 300px;"></td>
+                    </tr>
+                    <!--<tr><td><div style="margin:5px 0 10px 0;"></div></td></tr>-->
+                    <tr>
+                        <td align="right"><label>参数c:</label></td>
+                        <td colspan="3">
+                            <input id="icsc" name="ncsc" class="easyui-textbox" style="width: 300px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>公式:</label></td>
+                        <td colspan="5"><input id="igs" name="ngs" class="easyui-textbox" style="width: 300px;"></td>
+                    </tr>
+                </table>
+                    </div>
+                </div>
+               
+            
+            <input id="isb" name="nsb" type="hidden" onclick="doSearch()" />
+            <!--<input id="iAllAdress" name="AllAdress" class="easyui-textbox" type="hidden" />-->
+            
+            </form>
+        </div>
+        <div id="dlg-buttons">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="Save()">保存</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">关闭</a>
+        </div>
+        
+        <!--报警设定的操作弹出框 -->
+        <div id="dlg-Bj" class="easyui-dialog" title="报警设定页面" style="width: 600px; height: 320px;
+            padding: 10px" closed="true" modal="true" data-options="
+				iconCls: 'icon-save',
+				buttons: [{
+					text:'保存',
+					iconCls:'icon-ok',
+					handler:function(){
+						savebj();
+					}
+				},{
+					text:'退出',
+					handler:function(){
+						$('#dlg-Bj').dialog('close');
+					}
+				}]
+			">
+            	<div  class="easyui-layout" style="width:565px;height:235px;" >
+		            <div id="p" data-options="region:'east',collapsible:false" title="推送人员" style="width:280px;padding:10px">
+			            <table id="dgtsp"  style="width: 100%"></table>
+		            </div>
+		            <div data-options="region:'center'" title="报警设定" style="width:250px;">
+                                 <table>
+                                <tr>
+                                    <td align="right">
+                                        <label>设备编号：</label>
+                                    </td>
+                                    <td><label id="cbjsb"></label></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label>采集地址：</label></td>
+                                    <td><label id="cbjdz"></label></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label>地址类别：</label></td>
+                                    <td>
+                                        <select id="cbjlb" name="nbjlb" class="easyui-combobox" panelheight="auto" style="width: 155px">
+                                            <option value="0">---请选择---</option>
+                                            <option value="1">模拟量</option>
+                                            <option value="3">开关量</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label>模拟量报警范围:</label></td>
+                                    <td>
+                                        <input id="cbjMin" class="easyui-textbox" data-options="prompt:'最小值...',validType:'number'"  style="width: 70px;">-<input id="cbjMax" class="easyui-textbox" data-options="prompt:'最大值...',validType:'number'" style="width: 80px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label>开关量报警值：</label></td>
+                                    <td>
+                                        <input id="cbkgl" class="easyui-textbox" data-options="prompt:'输入0或1...',validType:'number'" style="width: 70px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><label>推送人员</label></td>
+                                    <td>
+                                        <input id="cc" style="width: 155px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <label>备注信息：</label>
+                                    </td>
+                                    <td>
+                                        <input id="cbjRemark" class="easyui-textbox" data-options="prompt:'备注信息...',multiline:true" style="width: 155px; height: 50px">
+                                    </td>
+                                </tr>
+                            </table>
+
+		            </div>
+	            </div>
+
+        </div>
+        <div id="tbts">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"   onclick="Delts()">删除</a>
+        </div>
+        <!--历史数据设置-->
+        <div id="dlg-ls" class="easyui-dialog" title="历史数据设定" style="width: 340px; height: 340px; padding: 10px 10px" closed="true" buttons="#dlgkg-buttons">
+            <div class="ftitle">历史数据设定</div>
+            <form id="fm-kgl" method="post" >
+                <table class="fitem">
+                    <tr>
+                        <td align="right"><label>id:</label></td>
+                        <td><input id="ilsid"  class="easyui-textbox" readonly></td>
+                    </tr>                    
+                    <tr>
+                        <td align="right"><label>采集地址:</label></td>
+                        <td><input id ="ilscjdz"  class="easyui-textbox" readonly></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>点地址:</label></td>
+                        <td><input id="ilsddz" class="easyui-textbox" readonly></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>点名称:</label></td>
+                        <td><input id="ilsddzn" class="easyui-textbox" readonly></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>类别:</label></td>
+                        <td><input id="ilsType" name="GongType" class="easyui-combobox" data-options="
+				                url:'../../ashx/plc/ahplcgnfl.ashx?type=cbox',
+				                method:'get',
+                                required: false,
+				                valueField:'dIntGongNengID',
+				                textField:'dVchGongNengName',
+				                panelHeight:'auto'
+			                 " readonly></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label>采集周期:</label></td>
+                        <td><select id="ilscjzq" name="nlscjzq" class="easyui-combobox" panelheight="auto" style="width: 150px">
+                                <option value="0">--未定义周期--</option>
+                                <option value="500">0.5秒周期</option>
+                                <option value="1000">1秒周期</option>
+                                <option value="60000">1分钟</option>
+                                <option value="3600000">1小时</option>
+                                <option value="86400000">1天</option>
+                            </select></td>
+                    </tr>
+                      <tr>
+                        <td align="right"><label>是否采集:</label></td>
+                        <td><input id="ilsck" type="checkbox"  /></td>
+                    </tr>    
+                </table>
+            </form>
+             </div>
+
+      <div id="dlgkg-buttons">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-ok" onclick="savels()">保存</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-cancel" onclick="javascript:$('#dlg-ls').dialog('close')">退出</a>
+        </div>
+        
+        <!--报警点设置下拉按钮-->
+        <div id="mm2" style="width: 100px;">
+            <div data-options="iconCls:'icon-ok'" onclick="bjdsd()">设定</div>
+            <div data-options="iconCls:'icon-cancel'" onclick="bjdqx()">取消</div>
+        </div>
+        <!--历史点设置下拉按钮-->
+        <div id="mm1" style="width: 100px;">
+            <div data-options="iconCls:'icon-ok'" onclick="SetLs()">设定</div>
+            <div data-options="iconCls:'icon-cancel'" onclick="lsdqx()">取消</div>
+        </div>
+        
+        <!--上排操作菜单-->
+        <div id="tb" style="height: auto">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="Add()">添加</a>|
+           <!-- <a href="#" class="easyui-splitbutton" data-options="menu:'#mm3',iconCls:'icon-add'">添加</a>| -->
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
+                    onclick="Edit()">编辑</a>| <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cut',plain:true"
+                        onclick="Del()">删除</a>|
+            <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="bjdsd()">报警设定</a>|-->
+            <a href="#" class="easyui-splitbutton" data-options="menu:'#mm2',iconCls:'icon-ok'">报警设定</a>|
+            <a href="#" class="easyui-splitbutton" data-options="menu:'#mm1',iconCls:'icon-ok'">历史点设定</a>|
+            <label>PLC名称:</label>
+            <input id="splc" />
+            <label>系统名称：</label><input id="sxt" />
+            <label>数据类别</label>
+            <select id="ilsOrbj" name="nlsOrbj" class="easyui-combobox" style=" width:120px;" panelheight="auto">
+            <option value="pt">普通数据</option>
+            <option value="ls">历史数据</option>
+            <option value="bj">报警数据</option>
+            </select>
+            <input id="sddz" class="easyui-searchbox" data-options="prompt:'请输入查找内容',searcher:doSearch" style="width: 150px" />|
+            <!--<input id="sddz" style="height:15px; margin:5px auto;"><bottom/> |
+    	    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="doSearch()">查询</a><bottom/> |--> 
+        </div>
+
+
+</body>
+</html>
+

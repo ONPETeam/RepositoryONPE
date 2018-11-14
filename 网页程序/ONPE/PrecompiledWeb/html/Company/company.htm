@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>公司信息</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script src="../../Scripts/html/company/company.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" style="height: 550px; width: 100%">
+    </table>
+    <div id="tb" class="easyui-toolbar">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="javascript:ShowAdd()">
+                        添加</a>
+            <a href="#" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="javascript:ShowEdit()">
+                        编辑</a>    
+            <a href="#" class="easyui-linkbutton" iconcls="icon-no" plain="true" onclick="javascript:ShowDel()">
+                        删除</a>   
+            <span class="datagrid-btn-separator" style="vertical-align: middle; height: 15px;display:inline-block;float:none"></span>
+            公司名称：<input class="easyui-textbox" id="searchName"  />
+            <a href="#" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="javascript:doSearch()">
+                        搜索</a>  
+    </div>
+    <div id="ShowWin" class="easyui-window" title='' data-options="iconCls:'icon-save'"
+        style="width: 580px; height: 300px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="ff">
+                <input type="hidden" id="company_id" />
+                <div class="fitem">
+                    <label>
+                        公司名称:</label><input class="easyui-textbox" id="companyName" value="" required="true"
+                            missingmessage="公司名称不能为空" style="width: 300px; float: right" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        简称:</label><input class="easyui-textbox" id="shortName" value="" />
+                    <label style="width: 90px;">
+                        组织机构代码：</label><input class="easyui-textbox" id="zzjgdm" value="" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        电话:</label><input class="easyui-validatebox" validtype="phone" id="companyPhone"
+                            value="" />
+                    <label>
+                        邮箱:</label><input class="easyui-validatebox" validtype="email" id="companyMail" value=""
+                            invalidmessage="邮箱格式不正确" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        网址:</label><input class="easyui-validatebox" validtype="url" id="companyWeb" value=""
+                            invalidmessage="网址格式不正确" style="width: 300px" />
+                </div>
+                <div class="fitem">
+                    <label>
+                        联系地址:</label>
+                    <input class="easyui-textbox" data-options="multiline:'ture'" id="companyAddress"
+                        value="" style="width: 300px; height: 80px" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="SaveContent();" style="width: 80px">保存</a> <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
+                        href="javascript:void(0)" onclick="closeAddWin()" style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

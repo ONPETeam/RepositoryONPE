@@ -1,0 +1,21 @@
+﻿正在安装程序集“C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.exe”。
+受影响的参数是:
+   logtoconsole = 
+   logfile = C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.InstallLog
+   assemblypath = C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.exe
+正在安装服务 GJHF.Service.NetworkCheck.ONPE_GJHF...
+已成功安装服务 GJHF.Service.NetworkCheck.ONPE_GJHF。
+正在日志 Application 中创建 EventLog 源 GJHF.Service.NetworkCheck.ONPE_GJHF...
+正在提交程序集“C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.exe”。
+受影响的参数是:
+   logtoconsole = 
+   logfile = C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.InstallLog
+   assemblypath = C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.exe
+正在卸载程序集“C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.exe”。
+受影响的参数是:
+   logtoconsole = 
+   logfile = C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.InstallLog
+   assemblypath = C:\Users\hedem\Desktop\NewONPE\GJHF.Service.NetworkCheck\bin\Debug\GJHF.Service.NetworkCheck.exe
+正在移除 EventLog 源 GJHF.Service.NetworkCheck.ONPE_GJHF。
+正在从系统中移除服务 GJHF.Service.NetworkCheck.ONPE_GJHF...
+已成功地从系统中移除服务 GJHF.Service.NetworkCheck.ONPE_GJHF。

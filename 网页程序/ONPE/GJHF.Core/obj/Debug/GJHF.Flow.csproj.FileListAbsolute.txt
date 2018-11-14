@@ -1,0 +1,4 @@
+D:\工作\Desktop\权限管理\GJHF.Core\bin\Debug\GJHF.Core.dll
+D:\工作\Desktop\权限管理\GJHF.Core\bin\Debug\GJHF.Core.pdb
+D:\工作\Desktop\权限管理\GJHF.Core\obj\Debug\GJHF.Core.dll
+D:\工作\Desktop\权限管理\GJHF.Core\obj\Debug\GJHF.Core.pdb

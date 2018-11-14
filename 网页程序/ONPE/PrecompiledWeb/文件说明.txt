@@ -1,0 +1,18 @@
+
+ashx  将程序url相关文件放在文件夹里，按功能建立子文件夹
+
+handle包含功能的不能内容，比如增删改查询等
+
+Control  将第三方插件放在此文件夹
+
+Script 管理js脚本
+
+Common管理js的全局函数
+
+Module 子文件夹管理的功能块的js类函数
+
+App_Code 管理cs类问题Model子文件夹管理对象实体类
+
+CommonDataModel管理控制json所需实体类
+
+html文件 管理所有用到的页面，在此页面中 设计界面，按功能新建子文件夹。

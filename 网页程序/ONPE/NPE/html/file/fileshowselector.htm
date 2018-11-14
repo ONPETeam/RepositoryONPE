@@ -1,0 +1,92 @@
+﻿
+    <div id="errorMessage">
+    </div>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            var fileselectID = parent.$('#leftFrame2').contents().find('#fileselectID');
+            var fileCode = fileselectID.val();
+            if (fileCode != "") {
+                $.ajax({
+                    url: '../../ashx/file/fileHandler.ashx?action=info',
+                    type: "get",
+                    data: {
+                        file_code: fileCode
+                    },
+                    success: function (data) {
+                        var result = eval('(' + data + ')');
+                        if (result) {
+                            if (result.file_type) {
+                                var s = result.file_type;
+                                switch (s) {
+                                    case "application/pdf":
+                                        var browser = myBrowser();
+                                        if (browser == "IE5" || browser == "IE6" || browser == "IE7" || browser == "IE8") {
+                                            document.getElementById("errorMessage").innerHTML = "sorry!您的浏览器暂不支持PDF文件在线预览！请点击<a href='../../ashx/file/filehandler.ashx?action=download&file_code=" + fileCode + "'>此处下载</a>查看";
+                                        } else {
+                                            window.location.href = "../../test/web/viewer.html?file=../../ashx/file/filehandler.ashx%3Faction%3Ddownload%26file_code%3D" + fileCode;
+                                        }
+                                        break;
+                                    case "image/jpeg":
+                                    case "image/pjpeg":
+                                        window.location.href = "fileInfo.htm?file_code=" + fileCode;
+                                        break;
+                                    default:
+                                        document.getElementById("errorMessage").innerHTML = "sorry!您选择的文件暂不支持预览！请点击<a href='../../ashx/file/filehandler.ashx?action=download&file_code=" + fileCode + "'>此处下载</a>查看";
+                                        break;
+                                }
+                            }
+                            else {
+                                document.getElementById("errorMessage").innerHTML = "sorry!您选择的文件预览请求出现问题！请点击<a href='../../ashx/file/filehandler.ashx?action=download&file_code=" + fileCode + "'>此处下载</a>查看";
+                            }
+                        } else {
+                            document.getElementById("errorMessage").innerHTML = "sorry!您选择的文件预览请求出现问题！请点击<a href='../../ashx/file/filehandler.ashx?action=download&file_code=" + fileCode + "'>此处下载</a>查看";
+                        }
+
+                    },
+                    error: function (xhr, errorType, ssss) {
+                        alert(ssss.toString());
+                        document.getElementById("errorMessage").innerHTML = "sorry!您选择的文件预览请求出现问题！请点击<a href='../../ashx/file/filehandler.ashx?action=download&file_code=" + fileCode + "'>此处下载</a>查看";
+                    }
+                });
+            }
+            else {
+                document.getElementById("errorMessage").innerHTML = "sorry!未检测到您要预览的文件！";
+            }
+        });
+        function myBrowser() {
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+            var isSafari = userAgent.indexOf("Safari") > -1; //判断是否Safari浏览器
+            if (isIE) {
+                var IE5 = IE55 = IE6 = IE7 = IE8 = false;
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                IE55 = fIEVersion == 5.5;
+                IE6 = fIEVersion == 6.0;
+                IE7 = fIEVersion == 7.0;
+                IE8 = fIEVersion == 8.0;
+                if (IE55) {
+                    return "IE55";
+                }
+                if (IE6) {
+                    return "IE6";
+                }
+                if (IE7) {
+                    return "IE7";
+                }
+                if (IE8) {
+                    return "IE8";
+                }
+            } //isIE end
+            if (isFF) {
+                return "FF";
+            }
+            if (isOpera) {
+                return "Opera";
+            }
+        } //myBrowser() end
+    </script>

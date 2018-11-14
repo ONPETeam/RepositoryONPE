@@ -1,0 +1,18 @@
+﻿[{
+    "id": "norml",
+    "text":"正常(默认)",
+    "selected":true
+},{
+    "id":"smaller",
+    "text":"较小"
+},{
+    "id":"small",
+    "text":"小"
+},{
+    "id": "large",
+    "text":"大",
+    
+},{
+    "id": "larger",
+    "text":"较大"
+}]

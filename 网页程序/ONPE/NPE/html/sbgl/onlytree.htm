@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div id="loading" style="width: 200px; display: none">
+        <img src="../../img/loading.gif" style="width: 16px; height=16px"></img>
+        Loading......
+    </div>
+    <ul id="tt" class="easyui-tree" style="padding-top: 6px">
+    </ul>
+</body>
+</html>
+<script type="text/javascript">
+    function getNode(node) {
+        if (top.currentPage == '3') {
+            var object1 = $(parent.frames["mainFrame3"].document).find("#equipId"); //这是jquery对象，不能使用easyui的方法，也不能使用样式，不然值不变
+            object1.val(node.id);
+        }
+        if (top.currentPage == '4') {
+            var object2 = $("#equipId", parent.document);
+            object2.val(node.id + "," + node.text.replace(/<[^>]+>/g, ""));
+        }
+    }
+    $(document).ready(function () {
+        $('#tt').tree({
+            checkbox: false,
+            animate: true,
+            url: '../../ashx/sbgl/areaHandler.ashx?action=tree&area_parent=0',
+            onBeforeExpand: function (node, param) {
+                if (node.attributes == 'area') {
+                    $('#tt').tree('options').url = "../../ashx/sbgl/areaHandler.ashx?action=tree&area_parent=" + node.id;
+                }
+                if (node.attributes == 'lastArea') {
+
+                    $('#tt').tree('options').url = "../../ashx/sbgl/equipHandler.ashx?action=tree&area_id=" + node.id;
+                }
+                if (node.attributes == 'equip') {
+                    $('#tt').tree('options').url = "../../ashx/sbgl/equipHandler.ashx?action=tree&equip_parent=" + node.id;
+                }
+            },
+            onSelect: function (node) {
+                if (node.attributes == 'equip' || node.attributes == 'lastEquip') {
+                    getNode(node);
+                }
+            },
+            onBeforeLoad: function (node, param) {
+                $('#loading').show();
+            },
+            onLoadSuccess: function (node, data) {
+                $('#loading').hide();
+            }
+        });
+    });
+
+</script>

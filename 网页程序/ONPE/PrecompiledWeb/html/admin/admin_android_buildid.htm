@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script src="../../Scripts/html/admin/admin_android_buildid.js" type="text/javascript"></script>
+    <title>安卓推送样式设定</title>
+</head>
+<body>
+    <table id="dg" data-options="fit:true,border:false,toolbar:'#tb'">
+    </table>
+    <div id="win_android_buildid" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 320px; height: 340px; padding: 5px;">
+        <div data-options="region:'center'" style="padding: 10px;">
+            <form id="ff">
+            <input type="hidden" id="txt_data_id" />
+            <div class="ftitle">
+                推送样式名称
+            </div>
+            <div class="fitem">
+                <input id="txt_build_name" class="easyui-textbox" required="true" missingmessage="推送样式名称不能为空！" />
+            </div>
+            <div class="ftitle">
+                推送样式编号
+            </div>
+            <div class="fitem">
+                <input id="txt_build_id" class="easyui-numberbox" required="true" missingmessage="推送样式编号不能为空！" />
+            </div>
+            <div class="ftitle">
+                样式备注说明
+            </div>
+            <div class="fitem">
+                <input id="txt_build_remark" class="easyui-textbox" data-options="muiltline:true" style="height:50px;" />
+            </div>
+            </form>
+        </div>
+        <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="SaveAndroidBuildID();" style="width: 80px">保存</a> 
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="CloseWin()" style="width: 80px">取消</a>
+        </div>
+    </div>
+    <div id="tb" class="easyui-toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="AddAndroidBuildID()">添加推送样式 </a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="EditAndroidBuildID()">编辑推送样式</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:true" onclick="DelAndroidBuildID()">删除推送样式 </a>
+    </div>
+</body>
+</html>

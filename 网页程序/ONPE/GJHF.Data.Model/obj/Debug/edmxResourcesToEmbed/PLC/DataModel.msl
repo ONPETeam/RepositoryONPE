@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ONPE_SJModelStoreContainer" CdmEntityContainer="ONPE_SJEntitiesModel">
+    <EntitySetMapping Name="tZPlcPointDiZhi">
+      <EntityTypeMapping TypeName="ONPE_SJModel.tZPlcPointDiZhi">
+        <MappingFragment StoreEntitySet="tZPlcPointDiZhi">
+          <ScalarProperty Name="dIntDataID" ColumnName="dIntDataID" />
+          <ScalarProperty Name="dVchAdressName" ColumnName="dVchAdressName" />
+          <ScalarProperty Name="dVchAddress" ColumnName="dVchAddress" />
+          <ScalarProperty Name="dVchAllAdress" ColumnName="dVchAllAdress" />
+          <ScalarProperty Name="dVchDescription" ColumnName="dVchDescription" />
+          <ScalarProperty Name="dIntDataType" ColumnName="dIntDataType" />
+          <ScalarProperty Name="dFltBeishu" ColumnName="dFltBeishu" />
+          <ScalarProperty Name="dFltMoniMax" ColumnName="dFltMoniMax" />
+          <ScalarProperty Name="dFltMoniMin" ColumnName="dFltMoniMin" />
+          <ScalarProperty Name="dFltSjMax" ColumnName="dFltSjMax" />
+          <ScalarProperty Name="dFltSjMin" ColumnName="dFltSjMin" />
+          <ScalarProperty Name="dVchDanwei" ColumnName="dVchDanwei" />
+          <ScalarProperty Name="dIntGongType" ColumnName="dIntGongType" />
+          <ScalarProperty Name="dIntNengYuanType" ColumnName="dIntNengYuanType" />
+          <ScalarProperty Name="dIntPLCXitong" ColumnName="dIntPLCXitong" />
+          <ScalarProperty Name="dVchDataType" ColumnName="dVchDataType" />
+          <ScalarProperty Name="dIntZongGZ" ColumnName="dIntZongGZ" />
+          <ScalarProperty Name="dVchSheBei1" ColumnName="dVchSheBei1" />
+          <ScalarProperty Name="dVchSheBei2" ColumnName="dVchSheBei2" />
+          <ScalarProperty Name="dVchNeiBuBL1" ColumnName="dVchNeiBuBL1" />
+          <ScalarProperty Name="dVchNeiBuBL2" ColumnName="dVchNeiBuBL2" />
+          <ScalarProperty Name="dIntIOType" ColumnName="dIntIOType" />
+          <ScalarProperty Name="dIntPLCID" ColumnName="dIntPLCID" />
+          <ScalarProperty Name="dIntGzOrQd" ColumnName="dIntGzOrQd" />
+          <ScalarProperty Name="dIntPointType" ColumnName="dIntPointType" />
+          <ScalarProperty Name="dIntAreaXitongID" ColumnName="dIntAreaXitongID" />
+          <ScalarProperty Name="dIntShouJiPx" ColumnName="dIntShouJiPx" />
+          <ScalarProperty Name="dIntJsBz" ColumnName="dIntJsBz" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

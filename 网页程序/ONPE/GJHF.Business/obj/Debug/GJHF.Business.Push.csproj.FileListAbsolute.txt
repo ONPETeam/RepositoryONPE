@@ -1,0 +1,17 @@
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Business.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Business.Push.pdb
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Data.Factory.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Data.Interface.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Data.Model.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Utility.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\Newtonsoft.Json.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\cn.jpush.api.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Data.Factory.pdb
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Data.Interface.pdb
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Data.Model.pdb
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Push.pdb
+D:\工作\Desktop\权限管理\GJHF.Business.Push\bin\Debug\GJHF.Utility.pdb
+D:\工作\Desktop\权限管理\GJHF.Business.Push\obj\Debug\GJHF.Business.Push.csprojResolveAssemblyReference.cache
+D:\工作\Desktop\权限管理\GJHF.Business.Push\obj\Debug\GJHF.Business.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Business.Push\obj\Debug\GJHF.Business.Push.pdb

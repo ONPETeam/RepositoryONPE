@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>停送电流程</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/datagrid-detailview.js" type="text/javascript"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="../../Scripts/Common/common.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/TSD/flow.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" data-options="toolbar:'#tb'">
+        
+    </table>
+    <div  id="tb" class="easyui-toolbar">
+        <a id="btn_tsd_confirm_power_off" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-add',plain:true" onclick="ShowConfirm('off')">确认停电</a>
+        <a id="btn_tsd_power_off" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-add',plain:true" onclick="PowerSwitch('off')">停电</a>
+        <a id="btn_tsd_confirm_power_on" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-add',plain:true" onclick="ShowConfirm('on')">确认送电</a>
+        <a id="btn_tsd_power_on" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-add',plain:true" onclick="PowerSwitch('on')">送电</a>
+        <a id="btn_tsd_archive" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-add',plain:true" onclick="Archive()">归档</a>
+        <span class="datagrid-btn-separator" style="vertical-align: middle; height: 15px; display: inline-block; float: none"> </span>
+        选择设备:
+        <input id="search_equip_area" class="easyui-combotree" />
+        <input id="search_equip_code" class="easyui-combotree" />
+        流程状态：
+        <select id="search_flow_status" class="easyui-combobox">
+            <option value="-1">所有</option>
+            <option value="0">申请中</option>
+            <option value="1">已人工确认未停电</option>
+            <option value="2">已停电待申请送电</option>
+            <option value="3">已申请待确认送电</option>
+            <option value="4">已确认送电未送电</option>
+            <option value="5">已送电</option>
+            <option value="6">已归档</option>
+        </select>
+        停电时间：
+        <input id="search_poweroff_start" class="easyui-datetimebox" />
+        至
+        <input id="search_poweroff_end" class="easyui-datetimebox" />
+        送电时间：
+        <input id="search_poweron_start" class="easyui-datetimebox" />
+        至
+        <input id="search_poweron_end" class="easyui-datetimebox" />
+        <a id="btn_search_data" class="easyui-linkbutton" href="javascript:void(0)" data-options="iconCls:'icon-search',plain:true" onclick="SearchData()">查询</a>
+    </div>
+    <div id="win_confirm" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 320px; height: 270px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="ff_confirm">
+                    <input id="txt_flow_id" type="hidden" />
+                    <div class="fitem">
+                        <label style="text-align:right">确认人：</label>
+                        <input id="txt_comfirm_people" type="hidden" />
+                        <input id="txt_confirm_employee_name" class="easyui-textbox" disabled="disabled"/>
+                    </div>
+                    <div class="fitem">
+                        <label style="text-align:right">设备名称：</label>
+                        <input id="txt_equip_code" type="hidden" />
+                        <input id="txt_equip_name" class="easyui-textbox" disabled="disabled"/>
+                    </div>
+                    <div class="fitem">
+                        <label style="text-align:right">设备状态：</label>
+                        <select id="cmb_equip_status" class="easyui-combobox" >
+                            <option value="1">运行</option>
+                            <option value="0">停止</option>
+                        </select>
+                    </div>
+                    <div class="fitem">
+                        <label style="text-align:right">确认备注：</label>
+                        <input id="txt_confirm_remark" class="easyui-textbox" data-options="multiline:true" style="height:80px" />
+                    </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="ConfirmRequest();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="CloseConfirmWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>       
+    </div>
+</body>
+</html>

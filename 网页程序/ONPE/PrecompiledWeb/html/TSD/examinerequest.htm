@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>审核单</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="../../Scripts/Common/common.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/TSD/examinerequest.js" type="text/javascript"></script>
+</head>
+<body>
+     <table id="dg" class="easyui-datagrid" data-options="toolbar:'#tb'">
+    </table>
+    <div id="tb" class="easyui-toolbar">
+        审核类别：
+        <select id="search_request_type" class="easyui-combobox">
+            <option value="-1">所有</option>
+            <option value="0">停电审核</option>
+            <option value="1">送电审核</option>
+        </select>
+        审核时间：
+        <input class="easyui-datetimebox" id="search_examine_start" />
+        至
+        <input class="easyui-datetimebox" id="search_examine_end" />
+        审核结果：
+       <select id="search_examine_result" class="easyui-combobox">
+            <option value="-1">所有</option>
+            <option value="0">审核拒绝</option>
+            <option value="1">审核通过</option>
+        </select>
+        <a class="easyui-linkbutton" href="javascript:void(0)" onclick="SearchData()" data-options="iconCls:'icon-search',plain:true">查询</a>
+    </div>
+</body>
+</html>

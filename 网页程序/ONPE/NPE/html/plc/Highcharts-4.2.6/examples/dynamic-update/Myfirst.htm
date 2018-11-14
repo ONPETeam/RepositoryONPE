@@ -1,0 +1,146 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+		<script type="text/javascript" src="../../../../../Scripts/EasyUI/jquery.min.js"></script>
+		<style type="text/css">
+        ${demo.css}
+		</style>
+		<script type="text/javascript" >
+		    var dataTmp = "";
+		    $(function () {
+		        GetseriesValue();  //获取数据源信息
+		    });
+
+            //获取数据源信息
+//////////////////////////////////////////////////////////////////////
+function GetseriesValue() {
+ 
+//    var DropCustomerName = $("#DropCustomerName").val();  //获取客户名称
+
+    $.ajax({
+        type: "post",
+        url: "../../../../../ashx/plc/ahplcmanagerCombobox.ashx",
+        data: null,
+        dataType: "json",
+        success: function (result) {
+            dataTmp = "";
+//                                                $.each(result, function (i, field) {
+//            //拼接json数据集字符串
+//                                                    dataTmp += "{name: '" + field.dIntPLCID + "',data: [" + field.dIntPLCID + ", " + field.Feb + ", " + field.Mar + ", " + field.Apr
+//                                                    + ", " + field.May + ", " + field.Jun + "," + field.Jul + ", " + field.Aug + "," + field.Sep + ", " + field.Oct
+//                                                    + "," + field.Nov + ", " + field.Dec + "]}" + ",";
+//                                                });
+
+//            //去除最后一个字符
+//                                                dataTmp=dataTmp.substring(0, dataTmp.length - 1);
+
+            for (i = 0; i <= result.length - 1; i++) {
+                dataTmp = dataTmp + "[" + result[i].dIntPLCID + "," + result[i].dIntPLCID + "],";
+            }
+            dataTmp = dataTmp.substring(0, dataTmp.length - 1);
+            dataTmp = "{name:'abc',data:["+ dataTmp +"]}";
+            GetData(dataTmp);
+        },
+        error: function () {
+            alert("请求超时，请重试！");
+        }
+    });
+};
+//绑定获取数据信息操作
+//////////////////////////////////////////////////////////////////////
+function GetData(dataTmp) {
+
+    //绑定数据信息
+    $('#container').highcharts({
+        chart: {
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                stops: [
+            [0, 'rgb(255, 255, 255)'],
+            [1, 'rgb(240, 240, 255)']
+         ]
+            },
+            borderWidth: 2,
+            plotBackgroundColor: 'rgba(255, 255, 255, .9)',
+            plotShadow: true,
+            plotBorderWidth: 1
+        },
+        title: {
+            text: 'Monthly  Total Information ',
+            x: -20
+        },
+        subtitle: {
+            text: 'Source: winnaodan.net',
+            x: -20
+        },
+        lang: {
+            printChart: '打印图表',
+            downloadPNG: '下载JPEG 图片',
+            downloadJPEG: '下载JPEG文档',
+            downloadPDF: '下载PDF 文件',
+            downloadSVG: '下载SVG 矢量图',
+            contextButtonTitle: '下载图片'
+        },
+        xAxis: {
+            gridLineWidth: 1,
+            lineColor: '#000',
+            tickColor: '#000'
+//            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            minorTickInterval: 'auto',
+            lineColor: '#000',
+            lineWidth: 1,
+            tickWidth: 1,
+            tickColor: '#000',
+            min: 0,
+            labels: {
+                formatter: function () {  //设置纵坐标值的样式
+                    return this.value + '/Qty';
+                }
+            },
+            title: {
+                text: 'Total Analyze  (Qty)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y ;
+            }
+        },
+        legend: {
+            itemStyle: {
+                font: '9pt Trebuchet MS, Verdana, sans-serif',
+                color: 'black'
+            },
+            itemHoverStyle: {
+                color: '#039'
+            },
+            itemHiddenStyle: {
+                color: 'gray'
+            },
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        } ,
+        series: eval("[" + dataTmp + "]")  //获取数据源操作信息
+    });
+}
+		    
+		</script>
+	</head>
+	<body>
+<script src="../../js/highcharts.js"></script>
+<script src="../../js/modules/exporting.js"></script>
+
+    <div id="container" style="min-width:800px;height:400px"></div>
+	</body>
+</html>

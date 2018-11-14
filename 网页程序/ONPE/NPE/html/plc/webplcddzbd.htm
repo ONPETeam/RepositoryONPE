@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css"/>
+    <link rel="Stylesheet" type="text/css" href="css/all.css"/>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/webplcddzbd.js"></script>
+</head>
+<body>
+<input type="hidden" id="ddzRef" onclick="SetValueAndSearch()" />
+<input type="hidden" id="ddzname"  />
+<div><label style="font-size:larger">请在左侧设备树选择设备...</label></div>
+    <table id="dg" title="plc点地址绑定" style=" width: 100%"></table>
+
+    <div id="dlgbd" class="easyui-window" style="width:700px;height:400px;padding:5px 10px"
+			closed="true" buttons="#dlg-buttons">
+            <form id="fmbd" method="post" novalidate>
+        
+            <input id="idsb" name="nsb" value="--未选择设备--" type="hidden" disabled/>
+     
+            <table id="dgbd" title="plc绑定信息" ></table>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="getck()">绑定</a>
+            <input id="abc" name="nabc" type="hidden" />
+            </form>
+    </div>
+    <div id="tb" style="height:auto">
+        <label>PLC名称:</label><input id="splc" style="height:20px; margin:5px auto;" > |
+        <input id="sddzbd" class="easyui-searchbox" data-options="prompt:'请输入查找内容',searcher:doSearchbd" style="width:150px"></input>
+    	<!--<label>查找:</label><input id="sddzbd" style="height:15px; margin:5px auto;"><bottom/> |
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="doSearchbd()">查询</a><bottom/> |-->
+    </div>
+</body>
+</html>
+

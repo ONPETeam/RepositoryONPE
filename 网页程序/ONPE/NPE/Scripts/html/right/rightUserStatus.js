@@ -1,1 +1,0 @@
-﻿var rightUserStatus = [{ "id": "0", "text": "正常", "selected": true }, { "id": "1", "text": "锁定" }, { "id": "-1", "text": "注销"}];

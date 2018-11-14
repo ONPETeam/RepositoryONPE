@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>工艺系统</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css"/>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css"/>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+</head>
+<body>
+<table id="dg" title="工艺系统"></table>
+<!--<table id="tg" class="easyui-treegrid" title="TreeGrid Actions" style="width:700px;height:250px"
+			data-options="
+				iconCls: 'icon-ok',
+				rownumbers: true,
+				animate: true,
+				collapsible: true,
+				fitColumns: true,
+				url: '../../ashx/plc/ahplcXitong.ashx?action=treegrid',
+				method: 'get',
+				idField: 'id',
+				treeField: 'name'
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:180">点名称</th>
+				<th data-options="field:'dVchRemark',width:60,align:'right'">备注</th>
+				<th data-options="field:'dIntSjNoteID',width:80">上级点系统ID</th>
+		
+			</tr>
+		</thead>
+	</table>-->
+    <table id="tg" title="系统网格"></table>
+</body>
+</html>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //gird
+//        $('#dg').datagrid({
+//            url: '../../ashx/plc/ahplcXitong.ashx?action=grid',
+//            method: 'post',
+//            loadMsg: "正在努力加载数据，请稍后...",
+//            pagination: true, //分页控件
+//            remoteSort: true,
+//            pagePosition: 'bottom', //分页控件位置
+//            rownumbers: true,
+//            singleSelect: true,
+//            columns: [[
+//                { field: 'dIntNoteID', title: '点系统id', width: 60, align: 'right',hidden:true },
+//                { field: 'dVchPointType', title: '系统名称', width: 100, align: 'right', sortable: true },
+//                { field: 'dVchRemark', title: '备注', width: 200, align: 'right' },
+//                { field: 'dIntSjNoteID', title: '上级系统id', width: 200, align: 'right' }
+//            ]],
+
+//            width: 1066,
+////           rowStyler: function (index, row) { if (index % 2 == 0) { return 'background-color:#ccccff;'; } },
+////            striped: true, pagination: true, rownumbers: true, singleSelect: true, pageNumber: 1, pageSize: 8, pageList: [1, 2, 4, 8, 16, 32], showFooter: true,
+//            toolbar: [{
+//                text: '添加',
+//                iconCls: 'icon-add',
+//                handler: function () { Add() }
+//            }, {
+//                text: '修改',
+//                iconCls: 'icon-edit',
+//                handler: function () { edit() }
+//            }, '-', {
+//                text: '删除',
+//                iconCls: 'icon-cut',
+//                handler: function () { del() }
+//            }]
+//        });
+//        var p = $('#dg').datagrid('getPager');
+//        $(p).pagination({
+//            pageSize: 10, //每页显示的记录条数，默认为10 
+//            pageList: [10, 20, 30], //可以设置每页记录条数的列表 
+//            beforePageText: '第', //页数文本框前显示的汉字 
+//            afterPageText: '页    共 {pages} 页',
+//            displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+//        });
+
+
+        //treegrid
+        $('#tg').treegrid({
+            iconCls: 'icon-ok',
+            rownumbers: true,
+            animate: true,
+            collapsible: true,
+            fitColumns: true,
+            url: '../../ashx/plc/ahplcXitong.ashx?action=treegrid',
+
+            idField: 'id',
+            treeField: 'name',
+            columns: [[
+		    { field: 'name', title: '系统名称', width: 60 },
+		    { field: 'dVchRemark', title: '备注', width: 80 }
+        ]]
+//        ,
+//        onBeforeExpand: function (node, param) {
+//                $('#tg').treegrid('options').url = "../../ashx/plc/ahplcXitong.ashx?action=treegrid";
+//                
+//                if (node.attributes == "ddz") {
+//                    $('#tt').tree('options').url = "../../ashx/plc/plcmanager.ashx?action=ddz&area_parent=" + node.id;
+//                }
+//            },
+        });
+
+    });
+    
+
+</script>

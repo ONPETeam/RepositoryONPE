@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+</head>
+<body>
+    <table id="dg">
+    </table>
+    <div id="ShowWin" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 330px; height: 300px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="ff">
+                <input type="hidden" id="area_id" />
+                <div class="fitem">
+                    <label style="text-align:right">
+                        区域名称：</label>
+                    <input id="area_name" class="easyui-textbox" required="true" missingmessage="区域名称不能为空"
+                        style="width: 180px;" />
+                </div>
+                <div class="ftitle">
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">
+                        区域编码：</label>
+                    <input id="area_code" class="easyui-textbox" style="width: 180px;" />
+                </div>
+                <div class="ftitle">
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">
+                        上级区域：</label>
+                    <input id="area_parent" class="easyui-combotree" value="0" style="width: 180px;"
+                        required="true" missingmessage="请选择上级区域" />
+                </div>
+                <div class="ftitle">
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">
+                        区域备注：</label>
+                    <input class="easyui-textbox" id="area_remark" data-options="multiline:true" style="width: 180px;
+                        height: 50px" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="SaveAreaInfo();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeAddWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+    <div id="tb" class="easyui-toolbar">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" href="javascript:void(0)"
+            onclick="ShowAdd()" style="width: 80px">添加</a> <a class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true"
+                href="javascript:void(0)" onclick="ShowEdit()" style="width: 80px">编辑</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:true" href="javascript:void(0)"
+            onclick="ShowDel()" style="width: 80px;display:none">删除</a> <span class="datagrid-btn-separator"
+                style="vertical-align: middle; height: 15px; display: inline-block; float: none">
+            </span>区域名称：<input id="search_area_name" class="easyui-textbox" />
+        上级区域：<input class="easyui-combotree" id="search_area_parent" />
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" href="javascript:void(0)"
+            onclick="SearchData()" style="width: 80px">查询</a>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var action = "add";
+    var LoadComboData = function () {
+        $('#area_parent').combotree({
+            url: '../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=0',
+            animate: true,
+            onBeforeExpand: function (node) {
+                $('#area_parent').combotree("tree").tree("options").url = "../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=" + node.id;
+            }
+        });
+    };
+    $(document).ready(function () {
+        $('#dg').datagrid({
+            url: '../../ashx/sbgl/areaHandler.ashx?action=show',
+            method: 'post',
+            loadMsg: "正在努力加载数据，请稍后...",
+            pagination: true, //分页控件
+            pagePosition: 'bottom', //分页控件位置
+            pageSize: 10,
+            singleSelect: true,
+            rownumbers: true,
+            fit: true,
+            columns: [[
+                { field: 'area_id', title: '区域编号', width: 100 },
+                { field: 'area_name', title: '区域名称', width: 200 },
+                { field: 'area_code', title: '区域编码', width: 100 },
+                { field: 'area_parent', title: '上级区域', hidden:true },
+                { field: 'area_parent_name', title: '上级区域', width: 100 },
+                { field: 'area_remark', title: '区域备注', width: 200 }
+            ]],
+            toolbar: '#tb'
+        });
+        $('#search_area_parent').combotree({
+            url: '../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=0',
+            animate: true,
+            onBeforeExpand: function (node) {
+                $('#search_area_parent').combotree("tree").tree("options").url = "../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=" + node.id;
+            }
+        });
+
+        var p = $('#dg').datagrid('getPager');
+        $(p).pagination({
+            pageSize: 10, //每页显示的记录条数，默认为10 
+            pageList: [5, 10, 15], //可以设置每页记录条数的列表 
+            beforePageText: '第', //页数文本框前显示的汉字 
+            afterPageText: '页    共 {pages} 页',
+            displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+        });
+
+
+        $('#ShowWin').window({
+            title: '',
+            striped: true,
+            singleSelect: true,
+            modal: true,
+            closed: true,
+            minimizable: false,
+            collapsible: true
+        });
+    });
+    function ShowAdd() {
+        action = "add";
+        LoadComboData();
+        $('#ShowWin').window('open').panel({ title: '添加新的区域' });
+    };
+    function ShowEdit() {
+        action = "edit";
+        var row = $('#dg').datagrid('getSelected');
+        if (row != null || row != undefined) {
+            $.messager.confirm("操作提示", "您确定要修改当前选择的数据吗？", function (data) {
+                if (data) {
+                    LoadComboData();
+                    $('#area_id').val(row.area_id.toString());
+                    $('#area_name').textbox('setValue', row.area_name.toString());
+                    $('#area_code').textbox('setValue', row.area_code.toString());
+                    $('#area_parent').combotree('setValue', row.area_parent.toString()).combotree('setText', row.area_parent_name.toString()),
+                    $('#area_remark').textbox('setValue', row.area_remark.toString());
+                    $('#ShowWin').window('open').panel({ title: '编辑区域信息' });
+                }
+            });
+        }
+        else {
+            $.messager.alert("操作提示", "请选择要编辑的数据！", "error");
+        }
+    };
+    function SearchData() {
+        $('#dg').datagrid('reload', {
+            area_name: $('#search_area_name').textbox('getValue'),
+            area_parent: $('#search_area_parent').combotree('getValue')
+        });
+    };
+    //删除操作提示
+    function delMsgDialog() {
+        var row = $('#dg').datagrid('getSelected');
+        if (row != null || row != undefined) {
+            $.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) {
+                if (data) {
+                    delNode(row.area_id);
+                }
+            });
+        }
+        else {
+            parent.$.messager.alert("操作提示", "请选择要删除的数据！", "error");
+        }
+    };
+    function delNode(areaID) {
+        $.ajax({
+            url: '../../ashx/sbgl/areaHandler.ashx?action=del&area_id=' + areaID,
+            data: null,
+            type: 'post',
+            dataType: 'text',
+            success: function (msg) {
+                if (msg == '1') {
+                    parent.$.messager.alert("操作提示", "删除成功！", "info");
+                    $('#dg').datagrid('reload');
+                    var s = parent.$('#leftFrame1').contents().find('#refreshtree');
+                    s.click();
+                } else {
+                    parent.$.messager.alert("操作提示", "删除失败！", "error");
+                }
+            }
+        });
+    };
+    function SaveAreaInfo() {
+        var areainfo = {
+            area_id: $('#area_id').val(),
+            area_name: $('#area_name').val(),
+            area_code: $('#area_code').val(),
+            area_parent: $('#area_parent').combotree('getValue'),
+            area_remark: $('#area_remark').val()
+        };
+        $.ajax({
+            type: 'post',
+            url: '../../ashx/sbgl/areaHandler.ashx?action=' + action,
+            data: areainfo,
+            dataType: 'text',
+            success: function (msg) {
+                var result = eval('(' + msg + ')');
+                if (result.success == true) {
+                    var s = parent.$('#leftFrame1').contents().find('#refreshtree');
+                    s.click();
+                    $('#ff').form('clear');
+                    closeAddWin();
+                    showMsg("操作提示", result.msg, "info")
+                } else {
+                    showMsg("操作提示", result.msg, "error")
+                }
+            }
+        });
+    };
+    function closeAddWin() {
+        $('#ShowWin').window('close');
+        $('#dg').datagrid('reload');
+    }
+
+</script>

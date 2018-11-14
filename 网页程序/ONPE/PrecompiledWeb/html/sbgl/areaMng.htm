@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 10px;">
+            <form id="ff">
+            <div class="fitem">
+                
+                <label>
+                    区域名称：</label>
+                <input id="area_id" type="hidden"/>
+                <input class="easyui-textbox" id="area_name" required="true" missingmessage="区域名称不能为空"
+                    style="width: 200px;" />
+                <label>
+                    区域编码：</label>
+                <input class="easyui-textbox" id="area_code" />
+            </div>
+            <div class="fitem">
+                <label>
+                    上级区域：</label>
+                <input id="area_parent_id" type="hidden" />
+                <input  id="area_parent_name" value="1111" />
+            </div>
+            <div class="fitem">
+                <label>
+                    区域备注：</label>
+                <input class="easyui-textbox" id="area_remark" data-options="multiline:true" style="width: 635px;
+                    height: 100px" />
+            </div>
+            </form>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="SaveAreaInfo();" style="width: 80px">保存</a> <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
+                        href="javascript:void(0)" onclick="clearaddform()" style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script language="javascript" type="text/javascript">
+    //var areacombotree;
+    var action;
+    //var areaparent;
+    $(document).ready(function () {
+        action = getQueryString('action');
+        //areaparent = getQueryString('areaparent');
+
+        //        onloading();
+//                getAreaComboTree();
+//        switch (action) {
+//            case 'add':
+//                if (areaid != undefined || areaid != "") {
+//        $('#area_parent_name').attr('class', 'easyui-textbox');
+//        $('#area_parent_id').val(areaparent);
+//                    SetTextValue(areaparent);
+                    
+//                }
+//                else {
+//                    $('#area_parent_name').attr('class', 'easyui-combotree');
+//                    SetComboValue();
+//                    $('#area_id').val(areaid);
+//                    
+//                };
+//                break;
+//            case 'edit':
+//                $('#area_parent_name').attr('class', 'easyui-combotree');
+//                SetComboValue();
+//                getAreaInfo(areaid);
+//                break;
+//        };
+
+
+    });
+//    function SetTextValue(areaParent) {
+//        var url = '../../ashx/sbgl/areaHandler.ashx?action=detail&area_id=' + areaParent;
+//        $.getJSON(url, function (data) {
+//            $.each(data, function (i, item) {
+//                $('#area_parent_name').val(item.area_name);
+//            });
+//        });
+//    };
+//    function getAreaInfo(areaID) {
+//        var url = '../../ashx/sbgl/areaHandler.ashx?action=detail&area_id=' + areaID;
+//        $.getJSON(url, function (data) {
+//            $.each(data, function (i, item) {
+//                $('#area_name').textbox('setValue',item.area_name);
+//                $('#area_code').textbox('setValue', item.area_code);
+//                $('#area_parent_name').combotree(item.area_parent);
+//                $('#area_remark').textbox('setValue', item.area_remark);
+//            });
+//        });
+//    };
+//    function SetComboValue() {
+//        $('#area_parent_name').combotree({
+//            url: '../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=0',
+//            animate: true,
+//            onClick: function (node) {
+
+//            },
+//            onBeforeExpand: function (node) {
+//               $('#area_parent_name').combotree("tree").tree("options").url = "../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=" + node.id;
+
+//            },
+//            onSelect: function (node) {
+//                $('#area_parent_id').val(node.id);
+//            }
+//        });
+//    };
+    function SaveAreaInfo() {
+        var areainfo = {
+            area_id: $('#area_id').val(),
+            area_name: $('#area_name').val(),
+            area_code: $('#area_code').val(),
+            area_parent: $('#area_parent_id').val(),
+            area_remark:$('#area_remark').val()
+        };
+        $.ajax({
+            type: 'post',
+            url: '../../ashx/sbgl/areaHandler.ashx?action=' + action,
+            data: areainfo,
+            dataType: 'text',
+            //            beforeSend:function(){
+            //                    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body"); 
+            //	                $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("body").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height() - 45) / 2});
+            //                },
+            success: function (msg) {
+                if (msg == "1") {
+                    parent.$.messager.alert("操作提示", "保存成功", "info");
+                    if (action == 'add') {
+                       
+                        var s = parent.$('#leftFrame1').contents().find('#refreshtree');
+                        s.click();
+                        $('#ff').form('clear');
+                    };
+                    //$('#showCompany').datagrid('reload');
+                } else {
+                    $.messager.showMsg("操作提示", "保存失败", "error");
+                }
+            }
+        });
+    };
+    function clearaddform() {
+        $('#ff').form('clear');
+    };
+    function onloading(){  
+        $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");   
+        $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("body").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height() - 45) / 2});   
+    }; 
+    function removeload(){  
+        $(".datagrid-mask").remove();  
+        $(".datagrid-mask-msg").remove();  
+    };
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+</script>

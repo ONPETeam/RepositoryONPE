@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="Stylesheet" type="text/css" href="css/all.css" />
+    <script src="../file/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Module/timer.js"></script>
+    <script src="../../Scripts/e-smart-zoom-jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript"  src="js/webplcgzbj.js"></script>
+    <!--   <script type="text/javascript" src="datagrid-detailview.js"></script>-->
+</head>
+<body>
+    <table id="dg" title="plc故障报警">
+    </table>
+    <div id="dlg" class="easyui-dialog" style="width: 600px; height: 380px; padding: 5px 5px"
+        closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">
+            相关设备</div>
+        <form id="fm" method="post" novalidate>
+        <div class="fitem">
+            <label>
+                点地址名称:</label>
+            <input id="idizhiName" name="ndizhiName">
+            <label>
+                故障描述:</label>
+            <input id="iGzMs" name="nGzMs">
+        </div>
+        <div class="fitem">
+            <label>
+                报警值:</label>
+            <input id="iBaojingValue" name="nBaojingValue">
+            <label>
+                报警时间:</label>
+            <input id="iDateTime" name="nDateTime">
+        </div>
+        <div class="fitem">
+            <label>
+                故障产生原因:</label>
+            <input id="iGzCsYy" name="nGzCsYy" style="width: 400px;" />
+        </div>
+        <div class="fitem">
+            <label>
+                故障处理办法:</label>
+            <input id="iGzClBf" name="nGzClBf" style="width: 400px;" />
+        </div>
+        <table id="dgSb" title="相关设备">
+        </table>
+        </form>
+    </div>
+    <div id="dlgFile" class="easyui-dialog" style="width: 600px; height: 380px; padding: 5px 5px"
+        closed="true" buttons="#dlg-buttons">
+        <!--<div style="margin: 20px 0;">
+        </div>-->
+        <div class="easyui-layout" style="width: 580px; height: 350px;">
+            <div id="p" data-options="region:'west'" title="图纸名" style="width: 20%;">
+                <table id="dgFile" >
+                </table>
+            </div>
+            <div data-options="region:'center'" title="图纸内容" style="width: 80%;">
+                <img id="imageFullScreen" />
+            </div>
+        </div>
+    </div>
+    <!--<div id="dlg-buttons">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="savedc()">Save</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+	</div>-->
+</body>
+</html>
+

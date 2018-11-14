@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/html/right/rights.js" type="text/javascript"></script>
+    <script src="../../Scripts/Common/common.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/right/rightClass.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="showWin" class="easyui-window" title="菜单绑定功能项" data-options="iconCls:'icon-save',cache:false"
+        style="width: 280px; height: 290px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="tt">
+                <div class="ftitle">
+                    <input type="hidden" id="right_code" />
+                    权限基础信息
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        权限名称:
+                    </label>
+                    <input id="right_name" class="easyui-textbox" style="width: 160px;" />
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        权限类别:
+                    </label>
+                    <input id="right_class" class="easyui-combobox" style="width: 160px;" />
+                </div>
+                <!--<div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        分组序号:
+                    </label>
+                    <input id="item_group" class="easyui-textbox" style="width: 40px;" />
+                    <label style="width: 60px; text-align: right">
+                        显示顺序:
+                    </label>
+                    <input id="item_sort" class="easyui-textbox" style="width: 40px;" />
+                </div>-->
+                <div class="ftitle">
+                    备注
+                </div>
+                <div class="fitem">
+                    <input id="right_remark" class="easyui-textbox" style="width: 160px; height: 30px" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    id="ss" onclick="SaveContent();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeWin()"
+                        style="width: 80px">关闭</a>
+            </div>
+        </div>
+    </div>
+    <div id="ShowSetFunction" class="easyui-window" title="" data-options="iconCls:'icon-save',cache:false"
+        style="width: 280px; height: 220px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <input type="hidden" id="set_right_code" />
+                <div class="ftitle">
+                    选择功能
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        菜单组:
+                    </label>
+                    <input id="menugroup_id" class="easyui-combobox" style="width: 160px" />
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        菜单:
+                    </label>
+                    <input id="menu_id" class="easyui-combobox" style="width: 160px" />
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        功能:
+                    </label>
+                    <input id="rightitem_id" class="easyui-combobox" style="width: 160px" />
+                </div>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="SaveFunctionSet();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeFunctionSetWin()"
+                        style="width: 80px">关闭</a>
+            </div>
+        </div>
+    </div>
+    <table id="dg">
+    </table>
+</body>
+</html>
+http://tieba.baidu.com/p/3820735734

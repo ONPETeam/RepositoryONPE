@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>分配设备标准范围</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script type="text/javascript" src="../../Scripts/html/sjdj/RangeAllot.js"></script>
+</head>
+<body>
+    <div class="easyui-layout" style="width: 100%;" id="plan_layout" data-options="fit:true">
+<!--        <div data-options="region:'east',split:true,border:true,collapsed:true" title="设备标准"
+            style="width: 250px;">
+            <div class="fitem">
+            </div>
+        </div>-->
+        <div data-options="region:'center',border:false">
+            <table id="dg" data-options="fit:true,border:false" toolbar="#tb">
+            </table>
+        </div>
+    </div>
+    <div id="tb">
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    巡检区域:
+                    <input class="easyui-combotree" style="width: 150px" id="allot_equip_area" />
+                </td>
+                <td>
+                    巡检级别:
+                    <input class="easyui-combobox" style="width: 100px" id="allot_patrol_grade" />
+                </td>
+                <td>
+                    巡检专业：
+                    <input class="easyui-combobox" id="allot_major_time" style="width: 100px" />
+                </td>
+                <td>
+                    分配目标部门：
+                    <input class="easyui-combobox" id="allot_company_id" style="width: 100px" />
+                </td>
+                <td>
+                    <input class="easyui-combotree" id="allot_branch_code" style="width: 100px" />
+                </td>
+                <td>
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-ok" plain="true" onclick="AllotEquipStandard()">
+                        分配设备标准</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    设备分组:
+                    <input class="easyui-combotree" style="width: 150px" id="search_equip_code" />
+                </td>
+                <td>
+                    巡检级别:
+                    <input class="easyui-combobox" style="width: 100px" id="search_patrol_grade" />
+                </td>
+                <td>
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="SearchPlan()">
+                        查询设备点检范围</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

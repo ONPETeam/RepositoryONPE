@@ -1,0 +1,33 @@
+E:\工作\权限管理\web\GJHF.Push\bin\Debug\GJHF.Push.dll
+E:\工作\权限管理\web\GJHF.Push\bin\Debug\GJHF.Push.pdb
+E:\工作\权限管理\web\GJHF.Push\bin\Debug\cn.jpush.api.dll
+E:\工作\权限管理\web\GJHF.Push\bin\Debug\Newtonsoft.Json.dll
+E:\工作\权限管理\web\GJHF.Push\obj\Debug\GJHF.Push.JiGuang.csprojResolveAssemblyReference.cache
+E:\工作\权限管理\web\GJHF.Push\obj\Debug\GJHF.Push.dll
+E:\工作\权限管理\web\GJHF.Push\obj\Debug\GJHF.Push.pdb
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\GJHF.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\GJHF.Push.pdb
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\cn.jpush.api.dll
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\Newtonsoft.Json.dll
+D:\工作\Desktop\权限管理\GJHF.Push\obj\Debug\GJHF.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Push\obj\Debug\GJHF.Push.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\bin\Debug\GJHF.Push.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\bin\Debug\GJHF.Push.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\bin\Debug\cn.jpush.api.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\obj\Debug\GJHF.Push.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\obj\Debug\GJHF.Push.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Push\obj\Debug\GJHF.Push.JiGuang.csprojResolveAssemblyReference.cache
+D:\ONPE\GJHF.Push\bin\Debug\GJHF.Push.dll
+D:\ONPE\GJHF.Push\bin\Debug\GJHF.Push.pdb
+D:\ONPE\GJHF.Push\bin\Debug\cn.jpush.api.dll
+D:\ONPE\GJHF.Push\bin\Debug\Newtonsoft.Json.dll
+D:\ONPE\GJHF.Push\obj\Debug\GJHF.Push.dll
+D:\ONPE\GJHF.Push\obj\Debug\GJHF.Push.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\bin\Debug\GJHF.Push.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\bin\Debug\GJHF.Push.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\bin\Debug\cn.jpush.api.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\bin\Debug\Newtonsoft.Json.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\obj\Debug\GJHF.Push.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\obj\Debug\GJHF.Push.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Push\obj\Debug\GJHF.Push.JiGuang.csprojResolveAssemblyReference.cache

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>组管理</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <script src="../../Scripts/html/right/rightgroup.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/right/rightgrouptype.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/right/rightClass.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/icon/iconSize.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/icon/iconAlign.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/right/righttype.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="ShowWin" class="easyui-window" title="" data-options="iconCls:'icon-save',cache: false"
+        style="width: 380px; height: 270px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <form id="tt">
+                <div class="ftitle">
+                    基础信息
+                </div>
+                <div class="fitem">
+                    <input type="hidden" id="group_code" />
+                    <label style="width: 60px; text-align: right">
+                        组名称:
+                    </label>
+                    <input id="group_name" class="easyui-textbox" style="width: 120px;" />
+                    <label style="width: 60px; text-align: right">
+                        组类型:
+                    </label>
+                    <input id="group_type" class="easyui-combobox" style="width: 80px;" />
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        组说明:
+                    </label>
+                    <input id="group_discript" class="easyui-textbox" style="height: 30px; width: 200px;" />
+                </div>
+                <div class="ftitle">
+                    时效性
+                </div>
+                <div class="fitem">
+                    <label style="width: 60px; text-align: right">
+                        长久有效:
+                    </label>
+                    <input id="flag_valid" type="checkbox" style="width: auto;" value="true" />
+                    <label style="width: 60px; text-align: right">
+                        失效时间:
+                    </label>
+                    <input id="lost_time" class="easyui-datetimebox" style="width: 160px;" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    id="ss" onclick="SaveContent();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeWin()"
+                        style="width: 80px">关闭</a>
+            </div>
+        </div>
+    </div>
+    <div class="easyui-layout" style="width: 100%;" id="rightGroup_layout" data-options="fit:true">
+        <div data-options="region:'east',split:true,border:true,collapsed:true" title="角色成员"
+            style="width: 450px;">
+            <ul id="rightGroup_dg" data-options="fit:true,border:false">
+            </ul>
+        </div>
+        <div data-options="region:'center',border:false">
+            <table id="dg" data-options="fit:true,border:false">
+            </table>
+        </div>
+    </div>
+    <div id="showRightSet" class="easyui-window" title="" data-options="iconCls:'icon-save',cache:false"
+        style="width: 720px; height: 400px; padding: 10px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'north',border:false" style="height: 30px">
+                <div class="fitem">
+                    <label style="text-align: right; width: 100px;">
+                        选择权限类别：
+                    </label>
+                    <input id="right_class" class="easyui-combobox" style="width: 250px;" />
+                </div>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)"
+                    onclick="closeRightSetWin()" style="width: 80px">关闭</a>
+            </div>
+            <div data-options="region:'center',border:false">
+                <input type="hidden" id="right_set_group_code" />
+                <table id="rightSet_dg" class="easyui-datagrid" fit="true">
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="RightSetToolbar" style="width: 100%; text-align: left;">
+        授权类型:
+        <input class="easyui-combobox" id="set_right_type" data-options="required:'true'"
+            missingmessage="请选择授权类型！" />
+        永久有效:
+        <input type="checkbox" id="set_author_off" checked="checked" onclick="authorOffCheck()">
+        失效时间:
+        <input class="easyui-datetimebox" id="set_author_end" showseconds="false" />
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+            onclick="SaveRightSet();" style="width: 80px">授权</a>
+    </div>
+</body>
+</html>

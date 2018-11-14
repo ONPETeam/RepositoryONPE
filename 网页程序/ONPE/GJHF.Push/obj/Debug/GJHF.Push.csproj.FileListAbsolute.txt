@@ -1,0 +1,7 @@
+D:\工作\Desktop\权限管理\GJHF.Push\obj\Debug\GJHF.Push.csprojResolveAssemblyReference.cache
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\GJHF.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\GJHF.Push.pdb
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\cn.jpush.api.dll
+D:\工作\Desktop\权限管理\GJHF.Push\bin\Debug\Newtonsoft.Json.dll
+D:\工作\Desktop\权限管理\GJHF.Push\obj\Debug\GJHF.Push.dll
+D:\工作\Desktop\权限管理\GJHF.Push\obj\Debug\GJHF.Push.pdb

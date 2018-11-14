@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>送电申请</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css" />
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css" />
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script src="../../Scripts/EasyUI/easyui-lang-zh_CN.js" type="text/javascript"></script>
+    <script src="../../Scripts/Common/common.js" type="text/javascript"></script>
+    <script src="../../Scripts/html/TSD/poweronrequest.js" type="text/javascript"></script>
+</head>
+<body>
+    <table id="dg" class="easyui-datagrid" data-options="toolbar:'#tb'">
+    </table>
+    <div id="tb" class="easyui-toolbar">
+        <span class="datagrid-btn-separator" style="vertical-align: middle; height: 15px;
+            display: inline-block; float: none"></span><a id="btn_add_power_on_request" class="easyui-linkbutton"
+                href="javascript:void(0)" onclick="AddPowerOnRequest()" data-options="iconCls:'icon-add',plain:true">
+                申请送电</a> <a id="btn_cancle_power_on_request" class="easyui-linkbutton" href="javascript:void(0)"
+                    onclick="CancelpowerOnRequest()" data-options="iconCls:'icon-cancel',plain:true">
+                    撤销送电申请</a> <span class="datagrid-btn-separator" style="vertical-align: middle; height: 15px;
+                        display: inline-block; float: none"></span>申请时间：
+        <input class="easyui-datetimebox" id="search_request_start" />
+        至
+        <input class="easyui-datetimebox" id="search_request_end" />
+        送电时间：
+        <input class="easyui-datetimebox" id="search_poweron_start" />
+        至
+        <input class="easyui-datetimebox" id="search_poweron_end" />
+        <a class="easyui-linkbutton" href="javascript:void(0)" onclick="SearchData()" data-options="iconCls:'icon-search',plain:true">
+            查询</a>
+    </div>
+    <div id="win_add_poweron_request" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 606px; height: 600px; padding: 5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <div class="ftitle">
+                    待申请送电列表
+                </div>
+                <div class="fitem" style="height:200px;">
+                    <table id="dg_poweroff_request">
+                    </table>
+                </div>
+                <form id="ff">
+                <div class="ftitle">
+                    已选择停电申请：
+                </div>
+                <div class="fitem">
+                    <input id="poweroff_id" type="hidden" />
+                    <label style="text-align: right;">
+                        停电申请：</label>
+                    <label style="text-align: left;width:380px" id="poweroff_descript">
+                    </label>
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-reset'" href="javascript:void(0)"
+                        onclick="ClearSelectPowerOff();" style="width: 80px">重置</a>
+                </div>
+                <div class="ftitle">
+                    送电申请信息：
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        申请公司：</label>
+                    <input id="request_company" type="hidden" />
+                    <input id="txt_request_company" class="easyui-textbox" disabled="disabled" style="width:460px" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        申请部门：</label>
+                    <input id="request_branch" type="hidden" />
+                    <input id="txt_request_branch" class="easyui-textbox" disabled="disabled" style="width:460px" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        申请人：</label>
+                    <input id="request_employee" type="hidden" />
+                    <input id="txt_request_employee" class="easyui-textbox" disabled="disabled" style="width:460px" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        送电时间：</label>
+                    <input id="dtb_start_time" class="easyui-datetimebox" required="true" missingmessage="请选择停电时间！" style="width:460px" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align: right;">
+                        备注说明：</label>
+                    <input id="txt_request_remark" class="easyui-textbox" style="height: 40px;width:460px;" data-option="mutiline:true" />
+                </div>
+                </form>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)"
+                    onclick="RequestPowerOn();" style="width: 80px">保存</a> <a class="easyui-linkbutton"
+                        data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="CloseAddWin()"
+                        style="width: 80px">取消</a>
+            </div>
+        </div>
+    </div>
+    <div id="win_show_poweroff_request_detail" class="easyui-window" title="" data-options="iconCls:'icon-save'"
+        style="width: 320px; height: 380px; padding: 5px;">
+         <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding: 10px;">
+                <div class="fitem">
+                    <label style="text-align:right">申请单状态</label>
+                    <input id="show_poweroff_id" type="hidden" />
+                    <input id="show_poweroff_status" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">停电申请公司</label>
+                    <input id="show_request_company" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">停电申请部门</label>
+                    <input id="show_request_branch" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">停电申请人</label>
+                    <input id="show_request_employee" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">申请时间</label>
+                    <input id="show_request_time" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">停电设备</label>
+                    <input id="show_poweroff_equip" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">停电时间</label>
+                    <input id="show_poweroff_time" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">停电时长</label>
+                    <input id="show_poweroff_duration" class="easyui-textbox" data-options="disable:true" />
+                </div>
+                <div class="fitem">
+                    <label style="text-align:right">申请备注</label>
+                    <input id="show_poweroff_remark" class="easyui-textbox" data-options="disable:true,multiline:true" style="height:40px;" />
+                </div>
+            </div>
+            <div data-options="region:'south',border:false" style="text-align: right; padding: 5px 0 0;">
+               <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="CloseShowWin()"
+                        style="width: 80px">关闭</a>
+            </div>
+         </div>  
+    </div>
+</body>
+</html>

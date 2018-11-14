@@ -1,0 +1,60 @@
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.dll
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.pdb
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.dll
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.dll
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.dll
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\Newtonsoft.Json.dll
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.pdb
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.pdb
+E:\工作\权限管理\web\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.pdb
+E:\工作\权限管理\web\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.csprojResolveAssemblyReference.cache
+E:\工作\权限管理\web\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.dll
+E:\工作\权限管理\web\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.dll
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.dll
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.dll
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.dll
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\Newtonsoft.Json.dll
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.pdb
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.csprojResolveAssemblyReference.cache
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.dll
+D:\工作\Desktop\权限管理\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.pdb
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.csprojResolveAssemblyReference.cache
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.dll
+C:\Users\hedem\Desktop\New ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.pdb
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.dll
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.pdb
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.dll
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.dll
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.dll
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\Newtonsoft.Json.dll
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.pdb
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.pdb
+D:\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.pdb
+D:\ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.csprojResolveAssemblyReference.cache
+D:\ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.dll
+D:\ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.MSSQL.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\Newtonsoft.Json.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Interface.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Data.Model.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\bin\Debug\GJHF.Utility.pdb
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.csprojResolveAssemblyReference.cache
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.dll
+D:\ONPE 2018-05-16\ONPE\GJHF.Data.MSSQL\obj\Debug\GJHF.Data.MSSQL.pdb

@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>plc网络树</title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/tree.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+
+  
+
+</head>
+<body>
+<input type="hidden" id="iplcddzid" />
+<div id="loading" style="width:200px; display:none" >
+        <img src="../../img/loading.gif" style="width:16px; height:16px"></img>  Loading...... 
+    </div>
+    <ul id="tt" class="tree-tree" style="padding-top:6px"></ul>
+
+    <div id="mm" class="easyui-menu" style="width:120px;">
+		<div onclick="append()" data-options="iconCls:'icon-add'">Append</div>
+		<div onclick="removeit()" data-options="iconCls:'icon-remove'">Remove</div>
+		<div class="menu-sep"></div>
+		<div onclick="expand()">Expand</div>
+		<div onclick="collapse()">Collapse</div>
+	</div>
+
+     <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+			closed="true" buttons="#dlg-buttons">
+		<div class="ftitle">plc 开关量定义</div>
+		<form id="fm" method="post" novalidate>
+			<div class="fitem">
+				<label>点地址ID:</label>
+				<input id="idizhiID" name="dizhiID" >
+			</div>
+			<div class="fitem">
+				<label>点地址:</label>
+				<input id="iAddress" name="Address" >
+			</div>
+			<div class="fitem">
+				<label>状态:</label>
+				<input id="iState" name="State">
+			</div>
+             <div class="fitem">
+				<label>状态名称:</label>
+				<input id="iStateName" name="dVchStateName" />
+			</div>
+            <div class="fitem">
+				<label>描述:</label>
+				<input id="iMiaoshu"  name="Miaoshu" />
+			</div>
+            <div class="fitem">
+				<label>报警或异常状态:</label>
+				<input id="iAlermState" name="AlermState">
+			</div>
+            <div class="fitem">
+				<label>类型:</label>
+				<input id="iType" name="Type">
+			</div>
+		<!--	<div class="fitem">
+				<label>Email:</label>
+				<input name="email" class="easyui-validatebox" validType="email">
+			</div>-->
+		</form>
+	</div>
+	<div id="dlg-buttons">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+	</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    var treeNodes;
+    var menuNode;
+
+    function RefreshTree() {
+        $('#tt').tree('reload');
+    };
+    function getNode(node) {
+        //双击树节点，调用任务单明细
+        if (parent.currentPage == '3') {
+            var object1 = $(parent.frames["mainFrame3"].document).find("#equipId"); //这是jquery对象，不能使用easyui的方法，也不能使用样式，不然值不变
+            object1.val(node.id);
+        }
+    }
+
+    $(document).ready(function () {
+        //        getData();
+        $('#tt').tree({
+            checkbox: false,
+            animate: true,
+            url: '../../ashx/sbgl/areaHandler.ashx?action=tree&area_parent=0',
+            //data: treeNodes,
+            onContextMenu: function (e, node) {
+                e.preventDefault();
+                $('#tt').tree('select', node.target);
+                menuNode = node;
+                $('#mm').menu('show', {
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            },
+
+            onDblClick: function (node) {
+                if (node.attributes == 'equip' || node.attributes == 'lastEquip') {
+                    getNode(node);
+                }
+            },
+            onBeforeExpand: function (node, param) {
+
+                if (node.attributes == 'area') {
+                    $('#tt').tree('options').url = "../../ashx/sbgl/areaHandler.ashx?action=tree&area_parent=" + node.id;
+                }
+                if (node.attributes == 'lastArea') {
+
+                    $('#tt').tree('options').url = "../../ashx/plc/plcmanager.ashx?action=AreaDdz&area_parent=" + node.id;
+                }
+            
+            },
+
+
+
+            onSelect: function (node) {
+                //                alert(node.attributes);
+                $('#iplcddzid').val("");
+                $('#tt').tree(node.state === 'closed' ? 'expand' : 'collapse', node.target);
+                //点击plc树显示需要用
+                //区域
+                if (node.attributes == 'area' || node.attributes == 'lastArea') {
+                    parent.LoadPropertyData('ashx/sbgl/areaHandler.ashx?action=prop&area_id=' + node.id);
+                }
+                //plc
+                if (node.attributes == 'ddz') {
+                    parent.LoadPropertyData('ashx/plc/plcmanager.ashx?action=prop&area_parent=' + node.id);
+                }
+
+                if (node.attributes == 'dc') {
+
+                    
+                    $('#iplcddzid').val(node.id);
+                    if (parent.currentPage == '55') {
+                        var object1 = parent.$("#mainFrame55").contents().find("#ilssj");
+//                        var object1 = $(parent.frames["mainFrame55"].document).find("#ilssj");
+                        object1.val(node.id);
+                        object1.click();
+                    }
+//                    if (parent.currentPage == '0') {
+//                        parent.main.plcmk(55);
+//                    }
+                    //PLC动态添加页面
+                    if (parent.currentPage == '61') {
+                        var object1 = parent.$("#mainFrame61").contents().find("#iddzid");
+//                        var object1 = $(parent.frames["mainFrame61"].document).find("#iddzid");
+
+                        object1.val(node.id);
+                        
+                        object1.click();
+                    }
+                    parent.LoadPropertyData('ashx/plc/plcmanager.ashx?action=propddz&area_parent=' + node.id);
+                }
+            },
+            onBeforeLoad: function (node, param) {
+                $('#loading').show();
+            },
+            onLoadSuccess: function (node, data) {
+                $('#loading').hide();
+            }
+        });
+
+    });
+    function menuHandler(item) {
+        switch (item.name) {
+            case 'm_add_area':
+                addNewAreaNode();
+                break;
+            case 'm_add_top_equip':
+                addNewEquipNode();
+                break;
+            case 'm_add_equip':
+                addNewEquipNode();
+                break;
+            //            case 'm_edit': 
+            //                editNode(); 
+            //                break; 
+            case 'm_del':
+                delMsgDialog();
+                break;
+            default:
+                break;
+        }
+    };
+    //删除操作提示
+    function delMsgDialog() {
+        parent.$.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) {
+            if (data) {
+                delNode();
+            }
+            else {
+            }
+        });
+    };
+    function addNewAreaNode() {
+        parent.main.sbgl(11);
+        var objectName = $(parent.frames["mainFrame11"].document).find("#area_parent_name");
+        //        var s = objectName.val();
+        alert(objectName.id);
+        objectName.val('12333');
+        var objectID = $(parent.frames["mainFrame11"].document).find("#area_parent_id")
+        objectID.val(menuNode.id);
+        //parent.main.addTabHtml("新增区域", 'html/sbgl/areaMng.htm?action=add&areaparent=' + menuNode.id);
+    };
+    function addNewEquipNode() {
+        parent.main.addTabHtml("新增设备", 'html/sbgl/equipMng.htm?equipid=' + menuNode.id);
+    };
+    //    function editNode() {
+    //        if (menuNode.attributes == 'area' || menuNode.attributes == 'lastArea') {
+    //            parent.main.addTabHtml("编辑区域", 'html/sbgl/areaMng.htm?action=edit&areaid=' + menuNode.id);
+    //        }
+    //        if (menuNode.attributes == 'equip' || menuNode.attributes == 'lastEquip') {
+    //            parent.main.addTabHtml("新增区域", 'html/sbgl/equipMng.htm?equipid=' + menuNode.id);
+    //        }
+    //    };
+
+    function delNode() {
+
+        if (menuNode.attributes == 'area' || menuNode.attributes == 'lastArea') {
+            $.ajax({
+                url: '../../ashx/sbgl/areaHandler.ashx?action=del&area_id=' + menuNode.id,
+                data: null,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        parent.$.messager.alert("操作提示", "删除成功！", "info");
+                        $('#tt').tree('reload');
+                    } else {
+                        parent.$.messager.alert("操作提示", "删除失败！", "error");
+                    }
+                }
+            });
+        }
+        if (menuNode.attributes == 'equip' || menuNode.attributes == 'lastEquip') {
+            $.ajax({
+                url: '../../ashx/sbgl/equipHandler.ashx?action=del&equip_id=' + menuNode.id,
+                data: null,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        showMsg("操作提示", "删除成功！", "info")
+                        $('#tt').tree('reload');
+                    } else {
+                        showMsg("操作提示", "删除失败！", "error")
+                    }
+                }
+            });
+        }
+    };
+    //获取数据
+    var getData = function () {
+        $.ajax({
+            type: 'post',
+            url: '../ashx/sbgl/area.ashx',
+            dataType: "json",
+            data: {},
+            async: false,
+            success: function (data) {
+                treeNodes = data;
+            },
+            error: function (xhr, ts, err) {
+                alert('读取失败！');
+            }
+        });
+    }
+    function append() {
+        var t = $('#tt');
+        var node = t.tree('getSelected');
+//        t.tree('append', {
+//            parent: (node ? node.target : null),
+//            data: [{
+//                text: 'new item1'
+//            }, {
+//                text: 'new item2'
+//            }]
+        //        });
+        $('#dlg').dialog('open').dialog('setTitle', 'New User');
+        //        $('#fm').form('clear');
+        $("#iPLCID").val("");
+        $("#iPLCName").val("");
+        $("#iIPAdress").val("");
+
+        $("#idVchRemark").val("");
+        $("#d1 ").combobox('select', 0);
+        $("#d2").combobox('select', 0);
+
+
+        url = '../../ashx/plc/plcmanagerOperator.ashx?type=add';
+    }
+//    function append() {
+//        var t = $('#tt');
+//        var node = t.tree('getSelected');
+//        t.tree('append', {
+//            parent: (node ? node.target : null),
+//            data: [{
+//                text: 'new item1'
+//            }, {
+//                text: 'new item2'
+//            }]
+//        });
+//    }
+//    function removeit() {
+//        var node = $('#tt').tree('getSelected');
+//        $('#tt').tree('remove', node.target);
+//    }
+//    function collapse() {
+//        var node = $('#tt').tree('getSelected');
+//        $('#tt').tree('collapse', node.target);
+//    }
+//    function expand() {
+//        var node = $('#tt').tree('getSelected');
+//        $('#tt').tree('expand', node.target);
+    //    }
+
+</script>

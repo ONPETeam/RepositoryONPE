@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{80023433-D165-4FBF-B838-EC169403E594}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GJHF.Data.MSSQL</RootNamespace>
+    <AssemblyName>GJHF.Data.MSSQL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="claSqlConnDB.cs" />
+    <Compile Include="COMMON\DGlobal.cs" />
+    <Compile Include="FLOW\CLASS\DFLOWFlowClass.cs" />
+    <Compile Include="FLOW\DB\DFLOWValueFrom.cs" />
+    <Compile Include="FLOW\DB\DFLOWValueType.cs" />
+    <Compile Include="FLOW\DESIGN\DFLOWDesignFlow.cs" />
+    <Compile Include="FLOW\DESIGN\DFLOWDesignLine.cs" />
+    <Compile Include="FLOW\DESIGN\DFlowDesignStep.cs" />
+    <Compile Include="FLOW\DESIGN\DFlowWFJson.cs" />
+    <Compile Include="FLOW\TYPE\DFLOWFlowType.cs" />
+    <Compile Include="FLOW\VERSION\DFlowVersion.cs" />
+    <Compile Include="FORM\TYPE\DFORMFormType.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetButton.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetCheck.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetDatetimebox.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetSelect.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetTextarea.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetTextbox.cs" />
+    <Compile Include="FORM\WIDGET\DFORMWidgetValidatebox.cs" />
+    <Compile Include="HR\DBranch.cs" />
+    <Compile Include="HR\DEmployee.cs" />
+    <Compile Include="HR\DEmployeeGetPhone.cs" />
+    <Compile Include="HR\DHRCompany.cs" />
+    <Compile Include="HR\DHRGetEmployeeCode.cs" />
+    <Compile Include="PLC\DPlcAndFile.cs" />
+    <Compile Include="PLC\DPlcAndSb.cs" />
+    <Compile Include="PLC\DPlcArea.cs" />
+    <Compile Include="PLC\DPlcBaojing.cs" />
+    <Compile Include="PLC\DPlcBLFormula.cs" />
+    <Compile Include="PLC\DPlcBLGX.cs" />
+    <Compile Include="PLC\Dplcdc.cs" />
+    <Compile Include="PLC\DPlcDdz.cs" />
+    <Compile Include="PLC\DPlcDtTemp.cs" />
+    <Compile Include="PLC\DPlcFactory.cs" />
+    <Compile Include="PLC\DPlcHistoryData.cs" />
+    <Compile Include="PLC\DPlcJsLsReport.cs" />
+    <Compile Include="PLC\DPlcLsReport.cs" />
+    <Compile Include="PLC\DPlcManager.cs" />
+    <Compile Include="PLC\DPlcNetXr.cs" />
+    <Compile Include="PLC\DPLCPointPhoneType.cs" />
+    <Compile Include="PLC\DPlcPointType.cs" />
+    <Compile Include="PLC\DPlcPushTemp.cs" />
+    <Compile Include="PLC\DPlcTsHistory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PUSH\DPushMessage.cs" />
+    <Compile Include="PUSH\DPushResult.cs" />
+    <Compile Include="PUSH\DPushTarget.cs" />
+    <Compile Include="PUSH\DPushVoiceNotify.cs" />
+    <Compile Include="PUSH\DPushVoiceNotifyResult.cs" />
+    <Compile Include="SYS\DSysAndroidBuildID.cs" />
+    <Compile Include="SYS\DSysCarousel.cs" />
+    <Compile Include="SYS\DSysIOSSound.cs" />
+    <Compile Include="SYS\DSysPushClass.cs" />
+    <Compile Include="SYS\DSysState.cs" />
+    <Compile Include="SYS\DSystemSet.cs" />
+    <Compile Include="SYS\DSysVoiceTemplate.cs" />
+    <Compile Include="SYS\DSysVoiceTemplateDetail.cs" />
+    <Compile Include="TSD\DConfirmUnit.cs" />
+    <Compile Include="TSD\DExamineUnit.cs" />
+    <Compile Include="TSD\DRequestUnit.cs" />
+    <Compile Include="TSD\DTSDFlow.cs" />
+    <Compile Include="User\DGetUserID.cs" />
+    <Compile Include="User\DUser.cs" />
+    <Compile Include="User\DUserOperate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GJHF.Data.Interface\GJHF.Data.Interface.csproj">
+      <Project>{ECAAE4E0-D09D-4DA0-BE40-9471B8CFA5B1}</Project>
+      <Name>GJHF.Data.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GJHF.Data.Model\GJHF.Data.Model.csproj">
+      <Project>{05727414-3AA8-421C-BAD9-16AE409AE9C6}</Project>
+      <Name>GJHF.Data.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GJHF.Utility\GJHF.Utility.csproj">
+      <Project>{0D24DDF7-190B-4097-8671-DBE5614C9315}</Project>
+      <Name>GJHF.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

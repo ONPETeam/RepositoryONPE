@@ -1,0 +1,435 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="../../Scripts/EasyUI/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fitem.css">
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/Common/common.js"></script>
+    <style type="text/css">
+        .table
+        {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+    <input id="equipId" type="hidden" value="" />
+    <table id="dg" style="width:100%; height:550px"></table>
+    <div id="win"  class="easyui-window" title="" data-options="iconCls:'icon-save'" style=" height:460px; width:730px;padding:5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <!--<div data-options="region:'east',split:true" style="width:100px"></div>-->
+            <div data-options="region:'center'" style="padding:10px;" >
+                <div class="ftitle">新增任务工单&nbsp;&nbsp;<input id="rwd" type="text" class="easyui-textbox" size="20" value="------" /></div>
+                        <form id="ff">
+                                <div class="fitem">
+                                    <label>签发单位:</label><input id="RwCreatUnit" value="" class="easyui-combotree">
+                                    <label>签发人:</label><input style="width:125px" id="RwCreatPeo" class="easyui-textbox" />
+                                    <label>发送时间:</label><input style="width:125px" id="RwStart" class="easyui-datetimebox" required data-options="validType:'md[\'10/11/2012\']'"/>
+                                </div>
+                                <div class="fitem">    
+                                    <label>接收单位:</label><input id="RecBranch" value="" class="easyui-combotree">
+                                    <label>接收人:</label><input style="width:125px" id="RecEmployee" class="easyui-textbox" />
+                                    <label>接收时间:</label><input style="width:125px" id="RecTime" class="easyui-datetimebox" required data-options="validType:'md[\'10/11/2012\']'"/>
+                                </div>
+                                <div class="ftitle"></div>
+                                <div class="fitem">
+                                    <label>作业区域:</label><input id="Area" value="" class="easyui-combotree" multiple >
+                                    <label>要求完成时间:</label><input style="width:125px" id="SetEnd" class="easyui-datetimebox" required data-options="validType:'md[\'10/11/2012\']'"/>
+                                </div>
+                                <div class="ftitle"></div>
+                                <div class="fitem">    
+                                    <label>作业内容及质量要求:</label><input id="RwContent" class="easyui-textbox" data-options="multiline:true" value="" style="width:585px;height:100px">
+                                </div>
+                                <div class="fitem">    
+                                    <label>所需备品备件及材料:</label><input id="OthersEquip" class="easyui-textbox" />
+                                </div>
+                                <div class="ftitle"></div>
+                                <div class="fitem">
+                                    <label>检修单位签字:</label><input id="Text1" class="easyui-textbox"  style="width:100px"/>
+                                    <label>产权单位签字:</label><input id="Text2" class="easyui-textbox" style="width:100px"/>
+                                    <label>设备部签字:</label><input id="Text3" class="easyui-textbox" style="width:100px"/>
+                                </div>
+                        </form>
+                   </div>  
+   
+                <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" href="javascript:void(0)" onclick="addRwd();" style="width:80px">Ok</a>
+                    <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" href="javascript:void(0)" onclick="closeWin();" style="width:80px">Cancel</a>
+                </div>
+          </div>
+        </div>
+    <div id="qzWin" class="easyui-window" title="签字确认" style="width:280px;height:128px;padding:5px;">   
+        <div class="easyui-layout" data-options="fit:true">
+		    <div data-options="region:'center'" style="padding:10px;" >
+                请输入姓名：<input style="width:150px;" id="qzName" class="easyui-textbox" />
+            </div>
+		    <div data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+			    <a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="updateQZ();">Ok</a>
+			    <a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="closeqzWin();">Cancel</a>
+		    </div>
+        </div>    
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    var unittree;
+    var equiareatree;
+    var selRow;
+    var qzMark=0;
+    $.extend($.fn.validatebox.defaults.rules, {
+			md: {
+				validator: function(value, param){
+					var d1 = $.fn.datebox.defaults.parser(param[0]);
+				var d2 = $.fn.datebox.defaults.parser(value);
+					return d2<=d1;
+			},
+				message: '日期格式不正确，例如 {0}.'
+			}
+		})
+
+
+		$(function () {
+//		    aa();
+            getUnitData();
+		    
+		    $('#dg').datagrid({
+		        url: '../../ashx/rwxt/rwdHandle.ashx?type=grid',
+		        method: 'post',
+                singleSelect: true,
+                collapsible:true,
+                loadMsg: "正在努力加载数据，请稍后...",
+                pagination: true, //分页控件
+                pageSize: 20,
+                pagePosition: 'bottom', //分页控件位置
+                fit:true,
+                frozenColumns: [[
+                    { field: 'dVchRwNote', title: '任务单号', width: 150, align: 'center',hidden: 'true' },
+                    { field: 'dVchRwCreatUnit', title: '签发单位', width: 100, align: 'center' },
+                    { field: 'dVchRwCreatPeo', title: '签发人', width: 100, align: 'center' }
+                ]],
+		        columns: [[
+                { field: 'dDaeRwStart', title: '发送时间', width: 150, align: 'center' },
+                { field: 'dDaeSetEnd', title: '要求完成时间', width: 150, align: 'center' },
+                { field: 'dVchRwContent', title: '作业内容及质量要求', width: 130, align: 'center',formatter: remarkFormater1},
+                { field: 'dVchRecBranch', title: '接收部门', width: 100, align: 'center' }, /*接收部门：刷部门表*/
+                { field: 'dVchRecEmployee', title: '接收人', width: 100, align: 'center' },
+                { field: 'dDaeRecTime', title: '接收时间', width: 150, align: 'center' },
+                { field: 'dVchImportentLevel', title: '重要级别', width: 100, align: 'center' },
+                { field: 'dVchArea', title: '作业区域', width: 100, align: 'center',formatter: remarkFormater1 },
+                { field: 'dVchOthersEquip', title: '所需备品备件及材料', width: 100, align: 'center' },
+                { field: 'dVchCheckQZ', title: '检修单位确认', width: 100, align: 'center',formatter:strFormatQZ1 },
+                { field: 'dVchOwnerQZ', title: '产权单位确认', width: 100, align: 'center' ,formatter:strFormatQZ2},
+                { field: 'dVchEquipDepQZ', title: '设备部确认', width: 100, align: 'center' ,formatter:strFormatQZ3}
+            ]],
+		        toolbar: [{
+		            text: '新增任务单',
+		            iconCls: 'icon-add',
+		            handler: function () {
+		                $('#win').window('open'); 
+
+		            }
+		        }, {
+		            text: '删除任务单',
+		            iconCls: 'icon-cut',
+		            handler: function () { delMsgDialog(selRow); }
+		        }],
+                
+                onLoadSuccess:function(data) {
+                    $(".note").tooltip({
+                        onShow: function(){
+                            $(this).tooltip('tip').css({ 
+                                width:'300',
+                                boxShadow: '1px 1px 3px #292929'                        
+                            });
+                        }
+                    });
+
+                    for (var i = 0; i < data.rows.length; i++) 
+                    {
+//                        if (data.rows[i].dVchRwContent!= undefined)
+//                        {
+//                            var content1 = data.rows[i].dVchRwContent; 
+//                            toolcontent1 = "<tr><td>详细内容：" + content1 + " </td></tr>";  
+//                        }
+//                        //拼写tooltip的内容   
+//                        tooltipcontent1 = "<table style='width:200px;'>" + toolcontent1 + "</table>";  
+////                        addTooltip(tooltipcontent, 'content-' + i);  
+//                        addTooltip1(tooltipcontent1);
+
+                        //检修单位
+                        if(data.rows[i].dVchCheckQZ!= undefined)
+                        {
+                            if(data.rows[i].dVchCheckQZ =="") 
+                            {
+                                $('#qz1-'+i).click(function () {
+                                    qzMark=1;
+                                    $('#qzWin').window('open');
+                                })
+                            }
+                        }
+                        //产权单位
+                        if(data.rows[i].dVchOwnerQZ!= undefined)
+                        {
+                            if(data.rows[i].dVchOwnerQZ =="") 
+                            {
+                                $('#qz2-'+i).click(function () {
+                                    qzMark=2;
+                                    $('#qzWin').window('open');
+                                })
+                            }
+                        }
+                        //设备部
+                        if(data.rows[i].dVchEquipDepQZ!= undefined)
+                        {
+                            if(data.rows[i].dVchEquipDepQZ =="") 
+                            {
+                                $('#qz3-'+i).click(function () {
+                                    qzMark=3;
+                                    $('#qzWin').window('open');
+                                })
+                            }
+                        }
+//                        if(data.rows[i].dVchCheckQZ!= undefined)
+                    }
+//                    $('.easyui-tooltip').tooltip({
+//                        width:'200px',
+//                        position: 'top',
+//                        trackMouse:'true',
+//                        onShow: function(){
+////                            alert(content);
+//                            $(this).tooltip('tip').css({
+//                                nowrap:"false"
+//                            });
+//                        }
+//                    });
+                },
+                onSelect:function (index,row) {
+
+                    selRow = row.dVchRwNote; 
+//                    alert(row.dVchRwNote);
+                }
+		    
+
+
+            });
+            var p = $('#dg').datagrid('getPager');
+            $(p).pagination({
+                pageSize: 20, //每页显示的记录条数，默认为20 
+                pageList: [10, 20, 50], //可以设置每页记录条数的列表 
+                beforePageText: '第', //页数文本框前显示的汉字 
+                afterPageText: '页    共 {pages} 页',
+                displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+            });
+
+		    $('#win').window({
+		        title: '任务工单',
+		        modal: true,
+		        closed: true,
+		        minimizable: false,
+		        collapsible: true
+		    });
+
+            $('#qzWin').window({
+		        title: '签字确认',
+		        modal: true,
+		        closed: true,
+		        minimizable: false,
+		        collapsible: false,
+                resizable:false,
+                maximizable:false
+		    });
+            
+		    $("#RwCreatUnit").combotree({
+		        data: getUnitData,
+		        onSelect: function (node) {
+		            if (node.attributes == "unit") {
+		                $("#RwCreatUnit").combobox('setValue', '---');
+		            }
+		        }
+		    });
+		    $("#RecBranch").combotree({
+		        data: getUnitData,
+		        onSelect: function (node) {
+		            if (node.attributes == "unit") {
+		                $("#RecBranch").combobox('setValue', '---');
+		            }
+		        }
+		    });
+
+            $('#Area').combotree({
+            url: '../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=0',
+            onlyLeafCheck:true,
+            onBeforeExpand: function (node) {
+                $('#Area').combotree("tree").tree("options").url = "../../ashx/sbgl/areaHandler.ashx?action=combo&area_parent=" + node.id;
+                }
+            });
+
+		    //		    $('#RecBranchID').combotree('loadData', unittree);
+		    //		    $('#RwCreatUnit').combotree('loadData', unittree);
+
+		    //		    $('#RwCreatUnit').combotree({
+		    //		        onSelect: function (node) {
+		    //		            //                alert(node.attributes);
+
+		    //		        }
+		    //		    });
+		});
+
+    
+
+    //关闭窗体
+    function closeWin()
+    {
+        $('#win').window('close');
+        $('#dg').datagrid('reload');
+    }
+        //关闭窗体
+    function closeqzWin()
+    {
+        $('#qzWin').window('close');
+        $('#dg').datagrid('reload');
+        $('#qzName').textbox('clear');
+    }
+    //签字
+    function updateQZ()
+    {
+        if(qzMark==1)
+        {
+            //检修单位签字
+            var qz1 = {
+                qzName: $("#qzName").val(),
+                rwdNote:selRow
+            };
+            $.ajax({
+                url: '../../ashx/rwxt/rwdHandle.ashx?type=qz1',
+                data: qz1,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        showMsg("操作提示","签字确认成功！","info")
+                        $('#ff').form('clear');
+                    } else {
+                        showMsg("操作提示","签字确认失败！","error")
+                    }
+                }
+            })
+        }
+        if(qzMark==2)
+        {
+            //产权单位签字
+            var qz2 = {
+                qzName: $("#qzName").val(),
+                rwdNote:selRow
+            };
+            $.ajax({
+                url: '../../ashx/rwxt/rwdHandle.ashx?type=qz2',
+                data: qz2,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        showMsg("操作提示","签字确认成功！","info")
+                        $('#ff').form('clear');
+                    } else {
+                        showMsg("操作提示","签字确认失败！","error")
+                    }
+                }
+            })
+        }
+        if(qzMark==3)
+        {
+            //设备部签字
+            var qz3 = {
+                qzName: $("#qzName").val(),
+                rwdNote:selRow
+            };
+            $.ajax({
+                url: '../../ashx/rwxt/rwdHandle.ashx?type=qz3',
+                data: qz3,
+                type: 'post',
+                dataType: 'text',
+                success: function (msg) {
+                    if (msg == '1') {
+                        showMsg("操作提示","签字确认成功！","info")
+                        $('#ff').form('clear');
+                    } else {
+                        showMsg("操作提示","签字确认失败！","error")
+                    }
+                }
+            })
+        }
+    }
+
+
+    function addRwd() {
+        var rwd = {
+            RwCreatUnit: $("#RwCreatUnit").combobox("getText"),
+            RwCreatPeo: $("#RwCreatPeo").val(),
+            RwStart: $("#RwStart").datetimebox('getValue'),
+            RecBranch: $("#RecBranch").combobox("getText"),
+            RecEmployee: $("#RecEmployee").val(),
+            RecTime: $("#RecTime").datetimebox('getValue'),
+            Area: $("#Area").combobox("getText"),
+            RwContent: $("#RwContent").val(),
+            OthersEquip: $("#OthersEquip").val(),
+            SetEnd: $("#SetEnd").datetimebox('getValue'),
+        };
+        $.ajax({
+            url: '../../ashx/rwxt/rwdHandle.ashx?type=add',
+            data: rwd,
+            type: 'post',
+            dataType: 'text',
+            success: function (msg) {
+                if (msg == '1') {
+                    showMsg("操作提示","添加成功！","info")
+                    $('#ff').form('clear');
+                } else {
+                    showMsg("操作提示","添加失败！","error")
+                }
+            }
+        })
+    }
+        function delRwd(rwdid) {
+        $.ajax({
+            url: '../../ashx/rwxt/rwdHandle.ashx?type=del&rwdid=' + rwdid,
+            data: null,
+            type: 'post',
+            dataType: 'text',
+            success: function (msg) {
+                if (msg == '1') {
+                    showMsg("操作提示","删除成功！","info")
+                    $('#dg').datagrid('reload');
+                } else {
+                    showMsg("操作提示","删除失败！","error")
+                }
+            }
+        })
+    }
+
+    //删除操作提示
+    function delMsgDialog(rwdid)
+    {
+        $.messager.confirm("操作提示", "您确定要执行删除操作吗？", function (data) {  
+            if (data) {  
+                delRwd(rwdid);
+            }  
+            else {  
+            }  
+        }); 
+    }
+
+
+    function aa() {
+        var r = $('#RwStart').datetimebox('getValue');
+        alert($("#RwCreatUnit").val());
+    }
+</script>
